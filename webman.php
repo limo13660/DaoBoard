@@ -7,7 +7,7 @@ use Workerman\Worker;
 use Illuminate\Support\Facades\Cache;
 
 define('MAX_REQUEST', 6600);
-
+define('isWEBMAN', true);
 Adapterman::init();
 
 $ncpu = substr_count((string)@file_get_contents('/proc/cpuinfo'), "\nprocessor")+1;
