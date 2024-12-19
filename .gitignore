@@ -1,5 +1,5 @@
 /node_modules
-/config/daotech.php
+/config/daoboard.php
 /public/hot
 /public/storage
 /public/env.example.js

@@ -37,7 +37,7 @@ class ThemeController extends Controller
         return response([
             'data' => [
                 'themes' => $themeConfigs,
-                'active' => config('daotech.frontend_theme', 'daotech')
+                'active' => config('daoboard.frontend_theme', 'daoboard')
             ]
         ]);
     }

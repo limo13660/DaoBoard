@@ -16615,8 +16615,8 @@
                         paddingTop: 50
                     }
                 }, o.a.createElement("a", {
-                    href: "https://github.com/wyx2685/daotech"
-                }, "daotech"), " is best.")
+                    href: "https://github.com/wyx2685/daoboard"
+                }, "daoboard"), " is best.")
             }
         }
     },
@@ -17819,7 +17819,7 @@
                 })), a.a.createElement("div", {
                     className: "mb-3 font-size-sm mt-3 m-3 mx-xl-0"
                 }, a.a.createElement("span", {
-                    className: "daotech-plan-tabs border-primary text-primary"
+                    className: "daoboard-plan-tabs border-primary text-primary"
                 }, a.a.createElement("span", {
                     className: 0 === this.state.tabs && "active bg-primary",
                     onClick: ()=>this.setState({
@@ -17871,7 +17871,7 @@
                         }, a.a.createElement("h3", {
                             className: "block-title"
                         }, e.name), i && a.a.createElement("span", {
-                            className: "daotech-sold-out-tag"
+                            className: "daoboard-sold-out-tag"
                         }, Object(p["formatMessage"])({
                             id: "\u5373\u5c06\u552e\u7f44"
                         }))), a.a.createElement("div", {
@@ -18861,13 +18861,13 @@
                 }, f.a.createElement("div", {
                     className: "block-header block-header-default"
                 }, f.a.createElement("h3", {
-                    className: "block-title daotech-trade-no"
+                    className: "block-title daoboard-trade-no"
                 }, Object(b["formatMessage"])({
                     id: "\u5546\u54c1\u4fe1\u606f"
                 }))), f.a.createElement("div", {
                     className: "block-content pb-4"
                 }, f.a.createElement("div", {
-                    className: "daotech-order-info"
+                    className: "daoboard-order-info"
                 }, t.plan.id == 0 ? (f.a.createElement("div", null, f.a.createElement("span", null, Object(b["formatMessage"])({
                     id: "\u4ea7\u54c1\u540d\u79f0"
                 }), "\uff1a"), f.a.createElement("span", null, "\u5145\u503c"))) : (f.a.createElement("div", null, f.a.createElement("span", null, Object(b["formatMessage"])({
@@ -18881,7 +18881,7 @@
                 }, f.a.createElement("div", {
                     className: "block-header block-header-default"
                 }, f.a.createElement("h3", {
-                    className: "block-title daotech-trade-no"
+                    className: "block-title daoboard-trade-no"
                 }, Object(b["formatMessage"])({
                     id: "\u8ba2\u5355\u4fe1\u606f"
                 })), 0 === t.status && f.a.createElement("div", {
@@ -18921,7 +18921,7 @@
                 })))), f.a.createElement("div", {
                     className: "block-content pb-4"
                 }, f.a.createElement("div", {
-                    className: "daotech-order-info"
+                    className: "daoboard-order-info"
                 }, f.a.createElement("div", null, f.a.createElement("span", null, Object(b["formatMessage"])({
                     id: "\u8ba2\u5355\u53f7"
                 }), "\uff1a"), f.a.createElement("span", null, t.trade_no)), t.discount_amount ? f.a.createElement("div", null, f.a.createElement("span", null, Object(b["formatMessage"])({
@@ -18951,14 +18951,14 @@
                 }, s.map(e=>{
                     return f.a.createElement("div", {
                         onClick: ()=>this.changePaymentMethod(e.id),
-                        className: "daotech-select ".concat(n === e.id && "active border-primary")
+                        className: "daoboard-select ".concat(n === e.id && "active border-primary")
                     }, f.a.createElement("div", {
                         style: {
                             flex: 1,
                             paddingTop: 4
                         }
                     }, f.a.createElement(o["a"], {
-                        className: "daotech-select-radio",
+                        className: "daoboard-select-radio",
                         checked: n === e.id
                     }), e.name), e.icon && f.a.createElement("div", {
                         style: {
@@ -19113,7 +19113,7 @@
                 }), " ", Object(b["formatMessage"])({
                     id: "\u7ed3\u8d26"
                 })))))))), f.a.createElement(i["a"], {
-                    className: "daotech-payment-qrcode",
+                    className: "daoboard-payment-qrcode",
                     maskClosable: !0,
                     closable: !1,
                     centered: !0,
@@ -24100,7 +24100,7 @@
                     return this.renderMenu(e.type, e.title, e.href, e.icon)
                 }
                 ))), i.a.createElement("div", {
-                    className: "daotech-copyright"
+                    className: "daoboard-copyright"
                 }, window.settings.title ? window.settings.title : "DaoBoard", " v1.7.4"))
             }
         }
@@ -24195,7 +24195,7 @@
                 }, Object(u["formatMessage"])({
                     id: "\u641c\u7d22"
                 })))), i.a.createElement("div", {
-                    className: "dark" === m.header ? "daotech-container-title text-white" : "daotech-container-title text-black"
+                    className: "dark" === m.header ? "daoboard-container-title text-white" : "daoboard-container-title text-black"
                 }, this.props.title), i.a.createElement("div", null, i.a.createElement("div", {
                     className: "dropdown d-inline-block"
                 }, i.a.createElement("button", {
@@ -24297,7 +24297,7 @@
                     onClick: ()=>this.props.dispatch({
                         type: "layout/showNav"
                     }),
-                    className: "daotech-nav-mask",
+                    className: "daoboard-nav-mask",
                     style: {
                         display: this.props.layout.showNav ? "block" : "none"
                     }
@@ -30804,7 +30804,7 @@
             }
             renderNotice(e) {
                 return l.a.createElement("a", {
-                    className: "block block-rounded bg-image mb-0 daotech-bg-pixels",
+                    className: "block block-rounded bg-image mb-0 daoboard-bg-pixels",
                     style: e.img_url ? {
                         backgroundImage: "url(".concat(e.img_url, ")"),
                         backgroundSize: "cover"
@@ -31036,7 +31036,7 @@
                 }, l.a.createElement("div", {
                     className: "mb-3"
                 }, l.a.createElement("div", {
-                    className: "daotech-shortcuts-item",
+                    className: "daoboard-shortcuts-item",
                     onClick: ()=>h.a.push("/knowledge")
                 }, l.a.createElement("div", null, Object(b["formatMessage"])({
                     id: "\u67e5\u770b\u6559\u7a0b"
@@ -31052,7 +31052,7 @@
                 })), l.a.createElement(g["a"], {
                     subscribeUrl: d.subscribe_url
                 }, l.a.createElement("div", {
-                    className: "daotech-shortcuts-item"
+                    className: "daoboard-shortcuts-item"
                 }, l.a.createElement("div", null, Object(b["formatMessage"])({
                     id: "\u4e00\u952e\u8ba2\u9605"
                 })), l.a.createElement("div", {
@@ -31065,7 +31065,7 @@
                     },
                     className: "nav-main-link-icon si si-feed"
                 }))), l.a.createElement("div", {
-                    className: "daotech-shortcuts-item",
+                    className: "daoboard-shortcuts-item",
                     onClick: ()=>h.a.push(Object(p["m"])(d) ? "/plan/" + d.plan_id : "/plan")
                 }, l.a.createElement("div", null, Object(b["formatMessage"])({
                     id: Object(p["m"])(d) ? "\u7eed\u8d39\u8ba2\u9605" : "\u8d2d\u4e70\u8ba2\u9605"
@@ -31079,7 +31079,7 @@
                     },
                     className: "nav-main-link-icon si si-".concat(Object(p["m"])(d) ? "clock" : "bag")
                 })), l.a.createElement("div", {
-                    className: "daotech-shortcuts-item",
+                    className: "daoboard-shortcuts-item",
                     onClick: ()=>h.a.push("/ticket")
                 }, l.a.createElement("div", null, Object(b["formatMessage"])({
                     id: "\u9047\u5230\u95ee\u9898"
@@ -32003,7 +32003,7 @@
                 }, s.a.createElement("div", {
                     className: "content content-full"
                 }, s.a.createElement("div", {
-                    className: "daotech-knowledge-search-bar"
+                    className: "daoboard-knowledge-search-bar"
                 }, s.a.createElement(i["a"].Search, {
                     onChange: e=>{
                         this.onSearch(e.target.value)
@@ -32879,7 +32879,7 @@
                 }, f.a.createElement("h4", {
                     className: "mb-0 px-3"
                 }, t.name), g && "object" === typeof g ? f.a.createElement("div", {
-                    className: "daotech-plan-content px-3"
+                    className: "daoboard-plan-content px-3"
                 }, null === g || void 0 === g ? void 0 : g.map(e=>{
                     return f.a.createElement("div", {
                         style: {
@@ -32909,7 +32909,7 @@
                     dangerouslySetInnerHTML: {
                         __html: t.content
                     },
-                    className: "daotech-plan-content"
+                    className: "daoboard-plan-content"
                 })), f.a.createElement("div", {
                     className: "block block-rounded js-appear-enabled"
                 }, f.a.createElement("div", {
@@ -32931,13 +32931,13 @@
                                     selectPeriod: e
                                 }
                             }),
-                            className: "daotech-select ".concat(n === e && "active border-primary")
+                            className: "daoboard-select ".concat(n === e && "active border-primary")
                         }, f.a.createElement("div", {
                             style: {
                                 flex: 1
                             }
                         }, f.a.createElement(a["a"], {
-                            className: "daotech-select-radio",
+                            className: "daoboard-select-radio",
                             checked: n === e
                         }), h["a"].periodText[e] && h["a"].periodText[e]()), f.a.createElement("div", {
                             style: {
@@ -32957,7 +32957,7 @@
                     }
                 }, f.a.createElement("input", {
                     type: "text",
-                    className: "form-control daotech-input-coupon p-0",
+                    className: "form-control daoboard-input-coupon p-0",
                     ref: "coupon",
                     placeholder: Object(m["formatMessage"])({
                         id: "\u6709\u4f18\u60e0\u5238\uff1f"
@@ -35330,12 +35330,12 @@
                 }, a.a.createElement("main", {
                     id: "main-container"
                 }, a.a.createElement("div", {
-                    className: "daotech-background",
+                    className: "daoboard-background",
                     style: {
                         backgroundImage: window.settings.background_url && "url(".concat(window.settings.background_url, ")")
                     }
                 }), a.a.createElement("div", {
-                    className: "no-gutters daotech-auth-box"
+                    className: "no-gutters daoboard-auth-box"
                 }, a.a.createElement("div", {
                     style: {
                         maxWidth: 450,
@@ -35361,7 +35361,7 @@
                     className: "font-size-h1",
                     href: "javascript:void(0);"
                 }, window.settings.logo ? a.a.createElement("img", {
-                    className: "daotech-logo mb-3",
+                    className: "daoboard-logo mb-3",
                     src: window.settings.logo
                 }) : a.a.createElement("span", {
                     className: "text-dark"
@@ -35415,7 +35415,7 @@
                 }, Object(l["formatMessage"])({
                     id: "\u5fd8\u8bb0\u5bc6\u7801"
                 })), a.a.createElement(f["a"], null, a.a.createElement("span", {
-                    className: "daotech-login-i18n-btn"
+                    className: "daoboard-login-i18n-btn"
                 }, a.a.createElement("i", {
                     className: "si si-globe pr-1"
                 }), a.a.createElement("span", {
@@ -35523,12 +35523,12 @@
                 }, i.a.createElement("main", {
                     id: "main-container"
                 }, i.a.createElement("div", {
-                    className: "daotech-background",
+                    className: "daoboard-background",
                     style: {
                         backgroundImage: window.settings.background_url && "url(".concat(window.settings.background_url, ")")
                     }
                 }), i.a.createElement("div", {
-                    className: "no-gutters daotech-auth-box"
+                    className: "no-gutters daoboard-auth-box"
                 }, i.a.createElement("div", {
                     className: "",
                     style: {
@@ -35555,7 +35555,7 @@
                     className: "font-size-h1",
                     href: "javascript:void(0);"
                 }, window.settings.logo ? i.a.createElement("img", {
-                    className: "daotech-logo mb-3",
+                    className: "daoboard-logo mb-3",
                     src: window.settings.logo
                 }) : i.a.createElement("span", {
                     className: "text-dark"
@@ -35569,7 +35569,7 @@
                 }, i.a.createElement("span", {
                     className: "sr-only"
                 }, "Loading..."))) : i.a.createElement("div", null, i.a.createElement("div", {
-                    className: "form-group ".concat(c.email_whitelist_suffix ? "daotech-email-whitelist-enable" : "")
+                    className: "form-group ".concat(c.email_whitelist_suffix ? "daoboard-email-whitelist-enable" : "")
                 }, i.a.createElement("input", {
                     type: "text",
                     className: "form-control form-control-alt",
@@ -35696,7 +35696,7 @@
                 }, Object(l["formatMessage"])({
                     id: "\u8fd4\u56de\u767b\u5165"
                 })), i.a.createElement(f["a"], null, i.a.createElement("span", {
-                    className: "daotech-login-i18n-btn"
+                    className: "daoboard-login-i18n-btn"
                 }, i.a.createElement("i", {
                     className: "si si-globe pr-1"
                 }), i.a.createElement("span", {
@@ -50172,12 +50172,12 @@
                 }, i.a.createElement("main", {
                     id: "main-container"
                 }, i.a.createElement("div", {
-                    className: "daotech-background",
+                    className: "daoboard-background",
                     style: {
                         backgroundImage: window.settings.background_url && "url(".concat(window.settings.background_url, ")")
                     }
                 }), i.a.createElement("div", {
-                    className: "no-gutters daotech-auth-box"
+                    className: "no-gutters daoboard-auth-box"
                 }, i.a.createElement("div", {
                     className: "",
                     style: {
@@ -50204,7 +50204,7 @@
                     className: "font-size-h1",
                     href: "javascript:void(0);"
                 }, window.settings.logo ? i.a.createElement("img", {
-                    className: "daotech-logo mb-3",
+                    className: "daoboard-logo mb-3",
                     src: window.settings.logo
                 }) : i.a.createElement("span", {
                     className: "text-dark"
@@ -50283,7 +50283,7 @@
                 }, Object(l["formatMessage"])({
                     id: "\u8fd4\u56de\u767b\u5165"
                 })), i.a.createElement(f["a"], null, i.a.createElement("span", {
-                    className: "daotech-login-i18n-btn"
+                    className: "daoboard-login-i18n-btn"
                 }, i.a.createElement("i", {
                     className: "si si-globe pr-1"
                 }), i.a.createElement("span", {

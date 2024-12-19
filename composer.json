@@ -1,9 +1,9 @@
 {
-    "name": "daotech/daotech",
+    "name": "daoboard/daoboard",
     "type": "project",
-    "description": "daotech is a proxy protocol manage.",
+    "description": "daoboard is a proxy protocol manage.",
     "keywords": [
-        "daotech",
+        "daoboard",
         "v2ray",
         "shadowsocks",
         "trojan",

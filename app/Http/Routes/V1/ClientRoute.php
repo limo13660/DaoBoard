@@ -12,7 +12,7 @@ class ClientRoute
             'middleware' => 'client'
         ], function ($router) {
             // Client
-            if (empty(config('daotech.subscribe_path'))) {
+            if (empty(config('daoboard.subscribe_path'))) {
                 $router->get('/subscribe', 'V1\\Client\\ClientController@subscribe');
             }
             // App

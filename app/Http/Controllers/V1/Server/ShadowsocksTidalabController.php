@@ -22,7 +22,7 @@ class ShadowsocksTidalabController extends Controller
         if (empty($token)) {
             abort(500, 'token is null');
         }
-        if ($token !== config('daotech.server_token')) {
+        if ($token !== config('daoboard.server_token')) {
             abort(500, 'token is error');
         }
     }

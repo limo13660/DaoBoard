@@ -12,7 +12,7 @@
 
 按以下步骤进行面板文件迁移：
 
-    git remote set-url origin https://github.com/wyx2685/daotech  
+    git remote set-url origin https://github.com/wyx2685/daoboard  
     git checkout master  
     ./update.sh  
 
@@ -34,10 +34,10 @@
 - Laravel
 
 ## Demo
-[Demo](https://demo.daotech.com)
+[Demo](https://demo.daoboard.com)
 
 ## Document
-[Click](https://daotech.com)
+[Click](https://daoboard.com)
 
 ## Sponsors
 Thanks to the open source project license provided by [Jetbrains](https://www.jetbrains.com/)

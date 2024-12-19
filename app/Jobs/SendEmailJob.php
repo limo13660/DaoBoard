@@ -36,19 +36,19 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        if (config('daotech.email_host')) {
-            Config::set('mail.host', config('daotech.email_host', env('mail.host')));
-            Config::set('mail.port', config('daotech.email_port', env('mail.port')));
-            Config::set('mail.encryption', config('daotech.email_encryption', env('mail.encryption')));
-            Config::set('mail.username', config('daotech.email_username', env('mail.username')));
-            Config::set('mail.password', config('daotech.email_password', env('mail.password')));
-            Config::set('mail.from.address', config('daotech.email_from_address', env('mail.from.address')));
-            Config::set('mail.from.name', config('daotech.app_name', 'DaoBoard'));
+        if (config('daoboard.email_host')) {
+            Config::set('mail.host', config('daoboard.email_host', env('mail.host')));
+            Config::set('mail.port', config('daoboard.email_port', env('mail.port')));
+            Config::set('mail.encryption', config('daoboard.email_encryption', env('mail.encryption')));
+            Config::set('mail.username', config('daoboard.email_username', env('mail.username')));
+            Config::set('mail.password', config('daoboard.email_password', env('mail.password')));
+            Config::set('mail.from.address', config('daoboard.email_from_address', env('mail.from.address')));
+            Config::set('mail.from.name', config('daoboard.app_name', 'DaoBoard'));
         }
         $params = $this->params;
         $email = $params['email'];
         $subject = $params['subject'];
-        $params['template_name'] = 'mail.' . config('daotech.email_template', 'default') . '.' . $params['template_name'];
+        $params['template_name'] = 'mail.' . config('daoboard.email_template', 'default') . '.' . $params['template_name'];
         try {
             sleep(2); 
             Mail::send(

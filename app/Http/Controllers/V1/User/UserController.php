@@ -368,8 +368,8 @@ class UserController extends Controller
         $key = CacheKey::get('TEMP_TOKEN', $code);
         Cache::put($key, $user->id, 60);
         $redirect = '/#/login?verify=' . $code . '&redirect=' . ($request->input('redirect') ? $request->input('redirect') : 'dashboard');
-        if (config('daotech.app_url')) {
-            $url = config('daotech.app_url') . $redirect;
+        if (config('daoboard.app_url')) {
+            $url = config('daoboard.app_url') . $redirect;
         } else {
             $url = url($redirect);
         }
