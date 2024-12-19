@@ -47,7 +47,7 @@ class Helper
         if ($special) {
             $chars .= '!@#$?|{/:%^&*()-_[]}<>=+,.';
         }
-        
+
         $str = '';
         $max = strlen($chars) - 1;
         for ($i = 0; $i < $len; $i++) {
@@ -97,12 +97,12 @@ class Helper
 
     public static function getSubscribeUrl($token)
     {
-        $path = config('daoboard.subscribe_path', '/api/v1/client/subscribe');
+        $path = config('v2board.subscribe_path', '/api/v1/client/subscribe');
         if (empty($path)) {
             $path = '/api/v1/client/subscribe';
-        } 
+        }
         $path = "{$path}?token={$token}";
-        $subscribeUrls = explode(',', config('daoboard.subscribe_url'));
+        $subscribeUrls = explode(',', config('v2board.subscribe_url'));
         $subscribeUrl = $subscribeUrls[rand(0, count($subscribeUrls) - 1)];
         if ($subscribeUrl) return $subscribeUrl . $path;
         return url($path);
@@ -189,10 +189,10 @@ class Helper
             $tlsSettings = $server['tls_settings'] ?? $server['tlsSettings'] ?? [];
             $config['sni'] = $tlsSettings['server_name'] ?? $tlsSettings['serverName'] ?? '';
         }
-        
+
         $network = (string)$server['network'];
         $networkSettings = $server['networkSettings'] ?? [];
-    
+
         switch ($network) {
             case 'tcp':
                 if (!empty($networkSettings['header']['type']) && $networkSettings['header']['type'] === 'http') {
@@ -201,24 +201,14 @@ class Helper
                     $config['path'] = $networkSettings['header']['request']['path'][0] ?? null;
                 }
                 break;
-    
+
             case 'ws':
                 $config['path'] = $networkSettings['path'] ?? null;
                 $config['host'] = $networkSettings['headers']['Host'] ?? null;
                 break;
-    
+
             case 'grpc':
                 $config['path'] = $networkSettings['serviceName'] ?? null;
-                break;
-            
-            case 'quic':
-                $config['host'] = $networkSettings['security'] ?? null;
-                if (!empty($config['host'])) {
-                    if (isset($networkSettings['key'])) {
-                        $config['path'] = $networkSettings['key'];
-                    }
-                }
-                $config['type'] = $networkSettings['header']['type'] ?? 'none';
                 break;
 
             case 'kcp':
@@ -232,7 +222,7 @@ class Helper
                 $config['path'] = $networkSettings['path'] ?? null;
                 $config['host'] = $networkSettings['host'] ?? null;
                 break;
-            
+
             case 'xhttp':
                 $config['path'] = $networkSettings['path'] ?? null;
                 $config['host'] = $networkSettings['host'] ?? null;
@@ -271,7 +261,7 @@ class Helper
                 $config['sid'] = $tlsSettings['short_id'] ?? '';
             }
         }
-        
+
         self::configureNetworkSettings($server, $config);
 
         return self::buildUriString('vless', $uuid, $server, $name, $config);
@@ -316,9 +306,10 @@ class Helper
             "hysteria://{$remote}:{$firstPort}/?protocol=udp&auth={$password}&insecure={$server['insecure']}&peer={$server['server_name']}&upmbps={$server['down_mbps']}&downmbps={$server['up_mbps']}";
 
         if (isset($server['obfs']) && isset($server['obfs_password'])) {
-            $uri .= $server['version'] == 2 ? 
-                "&obfs={$server['obfs']}&obfs-password={$server['obfs_password']}" :
-                "&obfs={$server['obfs']}&obfsParam{$server['obfs_password']}";
+            $obfs_password = rawurlencode($server['obfs_password']);
+            $uri .= $server['version'] == 2 ?
+                "&obfs={$server['obfs']}&obfs-password={$obfs_password}" :
+                "&obfs={$server['obfs']}&obfsParam{$obfs_password}";
         }
         if (count($parts) !== 1 || strpos($parts[0], '-') !== false) {
             $uri .= "&mport={$server['mport']}";
@@ -341,20 +332,14 @@ class Helper
             case 'grpc':
                 self::configureGrpcSettings($settings, $config);
                 break;
-            case 'quic':
-                self::configureQuicSettings($settings, $config);
-                break;
             case 'kcp':
                 self::configureKcpSettings($settings, $config);
-                break;
-            case 'h2':
-                self::configureH2Settings($settings, $config);
                 break;
             case 'httpupgrade':
                 self::configureHttpupgradeSettings($settings, $config);
                 break;
             case 'xhttp':
-                self::configureSplithttpSettings($settings, $config);
+                self::configureXhttpSettings($settings, $config);
                 break;
         }
     }
@@ -380,29 +365,12 @@ class Helper
         $config['serviceName'] = $settings['serviceName'] ?? '';
     }
 
-    public static function configureQuicSettings($settings, &$config)
-    {
-        $config['quicSecurity'] = $settings['security'] ?? 'none';
-        if ($config['quicSecurity'] !='none') {
-            if (isset($settings['key'])){
-                $config['key'] = $settings['key'];
-            }
-        }
-        $config['headerType'] = $settings['header']['type'] ?? 'none';
-    }
-
     public static function configureKcpSettings($settings, &$config)
     {
         $config['headerType'] = $settings['header']['type'] ?? 'none';
         if (isset($settings['seed'])) {
             $config['seed'] = $settings['seed'];
         }
-    }
-	
-    public static function configureH2Settings($settings, &$config)
-    {
-        $config['path'] = $settings['path'] ?? '';
-        $config['host'] = $settings['host'] ?? '';
     }
 
     public static function configureHttpupgradeSettings($settings, &$config)
@@ -411,7 +379,7 @@ class Helper
         $config['host'] = $settings['host'] ?? '';
     }
 
-    public static function configureSplithttpSettings($settings, &$config)
+    public static function configureXhttpSettings($settings, &$config)
     {
         $config['path'] = $settings['path'] ?? '';
         $config['host'] = $settings['host'] ?? '';
