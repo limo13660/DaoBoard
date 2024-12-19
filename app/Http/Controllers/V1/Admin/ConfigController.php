@@ -192,7 +192,7 @@ class ConfigController extends Controller
             }
         }
         $data = var_export($config, 1);
-        if (!File::put(base_path() . '/config/daoboard.php', "<?php\n return $data ;")) {
+        if (!File::put(base_path() . '/config/v2board.php', "<?php\n return $data ;")) {
             abort(500, '修改失败');
         }
         if (function_exists('opcache_reset')) {
