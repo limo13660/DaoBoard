@@ -233,7 +233,7 @@ class Helper
                 $config['host'] = $networkSettings['host'] ?? null;
                 break;
             
-            case 'splithttp':
+            case 'xhttp':
                 $config['path'] = $networkSettings['path'] ?? null;
                 $config['host'] = $networkSettings['host'] ?? null;
                 break;
@@ -353,7 +353,7 @@ class Helper
             case 'httpupgrade':
                 self::configureHttpupgradeSettings($settings, $config);
                 break;
-            case 'splithttp':
+            case 'xhttp':
                 self::configureSplithttpSettings($settings, $config);
                 break;
         }
