@@ -56,6 +56,20 @@ class AuthService
                 Cache::put($jwt, $user->toArray(), 3600);
             }
             return Cache::get($jwt);
+            $data = (array)JWT::decode($jwt, new Key(config('app.key'), 'HS256'));
+            if (!self::checkSession($data['id'], $data['session'])) return false;
+
+            $user = User::select(['id', 'email', 'is_admin', 'is_staff'])
+                ->find($data['id']);
+            if (!$user) return false;
+
+            $userCache[$jwt] = [
+                'user' => $user->toArray(),
+                'expires_at' => now()->addMinutes(60)->timestamp
+            ];
+
+            Cache::put("USER_AUTH_CACHE", $userCache, 3600);
+            return $user->toArray();
         } catch (\Exception $e) {
             return false;
         }

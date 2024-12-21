@@ -89,7 +89,7 @@ class OrderController extends Controller
             $order->period = 'deposit';
             $order->trade_no = Helper::generateOrderNo();
             $order->total_amount = $request->input('deposit_amount');
-            
+
             $orderService->setOrderType($user);
             $orderService->setInvite($user);
 
@@ -97,9 +97,9 @@ class OrderController extends Controller
                 DB::rollback();
                 abort(500, __('Failed to create order'));
             }
-    
+
             DB::commit();
-    
+
             return response([
                 'data' => $order->trade_no
             ]);
@@ -179,7 +179,7 @@ class OrderController extends Controller
                     abort(500, __('Insufficient balance'));
                 }
                 $order->balance_amount = $user->balance;
-                $order->total_amount -= $user->balance;
+                $order->total_amount = $user->balance;
             }
         }
 

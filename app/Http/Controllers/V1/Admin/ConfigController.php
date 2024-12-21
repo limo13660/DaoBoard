@@ -70,9 +70,6 @@ class ConfigController extends Controller
     {
         $key = $request->input('key');
         $data = [
-            'ticket' => [
-                'ticket_status' => config('daoboard.ticket_status', 0)
-            ],
             'deposit' => [
                 'deposit_bounus' => config('daoboard.deposit_bounus', [])
             ],

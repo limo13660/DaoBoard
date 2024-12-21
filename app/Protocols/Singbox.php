@@ -47,7 +47,7 @@ class Singbox
     protected function buildProxies()
     {
         $proxies = [];
-    
+
         foreach ($this->servers as $item) {
             if ($item['type'] === 'shadowsocks') {
                 $ssConfig = $this->buildShadowsocks($this->user['uuid'], $item);
@@ -70,7 +70,7 @@ class Singbox
                 $proxies[] = $hysteriaConfig;
             }
         }
-    
+
         return $proxies;
     }
 
@@ -215,11 +215,19 @@ class Singbox
                 if (isset($grpcSettings['serviceName'])) $array['transport']['service_name'] = $grpcSettings['serviceName'];
             }
         }
+        if ($server['network'] === 'h2') {
+            $array['transport']['type'] = 'http';
+            if ($server['network_settings']) {
+                $h2Settings = $server['network_settings'];
+                if (isset($h2Settings['host'])) $array['transport']['host'] = array($h2Settings['host']);
+                if (isset($h2Settings['path'])) $array['transport']['path'] = $h2Settings['path'];
+            }
+        }
 
         return $array;
     }
 
-    protected function buildTrojan($password, $server) 
+    protected function buildTrojan($password, $server)
     {
         $array = [];
         $array['tag'] = $server['name'];

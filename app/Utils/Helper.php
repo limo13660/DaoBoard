@@ -47,7 +47,7 @@ class Helper
         if ($special) {
             $chars .= '!@#$?|{/:%^&*()-_[]}<>=+,.';
         }
-        
+
         $str = '';
         $max = strlen($chars) - 1;
         for ($i = 0; $i < $len; $i++) {
@@ -100,7 +100,7 @@ class Helper
         $path = config('daoboard.subscribe_path', '/api/v1/client/subscribe');
         if (empty($path)) {
             $path = '/api/v1/client/subscribe';
-        } 
+        }
         $path = "{$path}?token={$token}";
         $subscribeUrls = explode(',', config('daoboard.subscribe_url'));
         $subscribeUrl = $subscribeUrls[rand(0, count($subscribeUrls) - 1)];
@@ -189,10 +189,10 @@ class Helper
             $tlsSettings = $server['tls_settings'] ?? $server['tlsSettings'] ?? [];
             $config['sni'] = $tlsSettings['server_name'] ?? $tlsSettings['serverName'] ?? '';
         }
-        
+
         $network = (string)$server['network'];
         $networkSettings = $server['networkSettings'] ?? [];
-    
+
         switch ($network) {
             case 'tcp':
                 if (!empty($networkSettings['header']['type']) && $networkSettings['header']['type'] === 'http') {
@@ -201,12 +201,12 @@ class Helper
                     $config['path'] = $networkSettings['header']['request']['path'][0] ?? null;
                 }
                 break;
-    
+
             case 'ws':
                 $config['path'] = $networkSettings['path'] ?? null;
                 $config['host'] = $networkSettings['headers']['Host'] ?? null;
                 break;
-    
+
             case 'grpc':
                 $config['path'] = $networkSettings['serviceName'] ?? null;
                 break;
@@ -222,7 +222,7 @@ class Helper
                 $config['path'] = $networkSettings['path'] ?? null;
                 $config['host'] = $networkSettings['host'] ?? null;
                 break;
-            
+
             case 'xhttp':
                 $config['path'] = $networkSettings['path'] ?? null;
                 $config['host'] = $networkSettings['host'] ?? null;
@@ -259,7 +259,7 @@ class Helper
                 $config['sid'] = $tlsSettings['short_id'] ?? '';
             }
         }
-        
+
         self::configureNetworkSettings($server, $config);
 
         return self::buildUriString('vless', $uuid, $server, $name, $config);
@@ -305,7 +305,7 @@ class Helper
 
         if (isset($server['obfs']) && isset($server['obfs_password'])) {
             $obfs_password = rawurlencode($server['obfs_password']);
-            $uri .= $server['version'] == 2 ? 
+            $uri .= $server['version'] == 2 ?
                 "&obfs={$server['obfs']}&obfs-password={$obfs_password}" :
                 "&obfs={$server['obfs']}&obfsParam{$obfs_password}";
         }
