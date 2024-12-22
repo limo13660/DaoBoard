@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 putenv('APP_RUNNING_IN_CONSOLE=false');
 define('MAX_REQUEST', 6600);
 define('isWEBMAN', true);
+
 Adapterman::init();
 
 $ncpu = substr_count((string)@file_get_contents('/proc/cpuinfo'), "\nprocessor")+1;
