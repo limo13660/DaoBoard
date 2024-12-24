@@ -14,7 +14,7 @@ use App\Services\TicketService;
 use App\Models\Ticket;
 use App\Models\TicketMessage;
 use App\Utils\Dict;
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TicketController extends Controller
@@ -23,7 +23,7 @@ class TicketController extends Controller
     {
         $userId = $request->user['id'];
         $ticketId = $request->input('id');
-    
+
         if ($ticketId) {
             $ticket = Ticket::where('id', $ticketId)
                 ->where('user_id', $userId)
@@ -37,9 +37,9 @@ class TicketController extends Controller
                     $ticket['message'][$i]['is_me'] = false;
                 }
             }
-							 
+
             return response(['data' => $ticket]);
-			   
+
         }
         $ticket = Ticket::where('user_id', $userId)
             ->orderBy('created_at', 'DESC')
@@ -66,11 +66,10 @@ class TicketController extends Controller
                     break;
                 case 1:
                     // 仅限有付费订单用户
-                    $hasOrder = DB::table('orders')
-                        ->where('user_id', $request->user['id'])
+                    $hasOrder = Order::where('user_id', $request->user['id'])
                         ->whereIn('status', [3, 4])
                         ->exists();
-                
+
                     if (!$hasOrder) {
                         throw new \Exception(__('请先购买套餐'));
                     }
@@ -83,10 +82,10 @@ class TicketController extends Controller
                     // 处理未知状态
                     throw new \Exception(__('未知的工单状态'));
             }
-															 
+
             $ticketData = $request->only(['subject', 'level']) + ['user_id' => $request->user['id']];
             $ticket = Ticket::create($ticketData);
-    
+
             TicketMessage::create([
                 'user_id' => $request->user['id'],
                 'ticket_id' => $ticket->id,
@@ -94,7 +93,7 @@ class TicketController extends Controller
             ]);
 
             DB::commit();
-            $this->sendNotify($ticket, $request->input('message'));
+            $this->sendNotify($ticket, $request->input('message'),$request->user['id']);
             return response([
                 'data' => true
             ]);
@@ -178,7 +177,7 @@ class TicketController extends Controller
 				$request->input('withdraw_method'),
 				config(
 					'daoboard.commission_withdraw_method',
-					Dict::WITHDRAW_METHOD_WHITELIST_DEFAULT	 
+					Dict::WITHDRAW_METHOD_WHITELIST_DEFAULT
 				)
 			)
 		) {
@@ -226,7 +225,7 @@ class TicketController extends Controller
 		$telegramService = new TelegramService();
 		if (!empty($userid)) {
 			$user = User::find($userid);
-			
+
 			if ($user) {
 				$transfer_enable = $this->getFlowData($user->transfer_enable); // 总流量
 				$remaining_traffic = $this->getFlowData($user->transfer_enable - $user->u - $user->d); // 剩余流量
@@ -240,7 +239,7 @@ class TicketController extends Controller
 				} else {
 					$ip_address = $_SERVER['REMOTE_ADDR'];
 				}
-				
+
 				$api_url = "http://ip-api.com/json/{$ip_address}?fields=520191&lang=zh-CN";
 				$response = file_get_contents($api_url);
 				$user_location = json_decode($response, true);
@@ -249,10 +248,10 @@ class TicketController extends Controller
 				} else {
 					$location =  "无法确定用户地址";
 				}
-				
+
 				$plan = Plan::where('id', $user->plan_id)->first();
 				$planName = $plan ? $plan->name : '未找到套餐信息'; // Check if plan data is available
-				
+
 				$money = $user->balance / 100;
 				$affmoney = $user->commission_balance / 100;
 				$telegramService->sendMessageWithAdmin("??工单提醒 #{$ticket->id}\n———————————————\n邮箱：\n`{$user->email}`\n用户位置：\n`{$location}`\nIP:\n{$ip_address}\n套餐与流量：\n`{$planName} of {$transfer_enable}/{$remaining_traffic}`\n上传/下载：\n`{$u}/{$d}`\n到期时间：\n`{$expired_at}`\n余额/佣金余额：\n`{$money}/{$affmoney}`\n主题：\n`{$ticket->subject}`\n内容：\n`{$message}`", true);
