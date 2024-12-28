@@ -44,7 +44,7 @@ class ConfigController extends Controller
             'subject' => 'This is daoboard test email',
             'template_name' => 'notify',
             'template_value' => [
-                'name' => config('daoboard.app_name', 'V2Board'),
+                'name' => config('daoboard.app_name', 'DaoBoard'),
                 'content' => 'This is daoboard test email',
                 'url' => config('daoboard.app_url')
             ]
@@ -95,8 +95,8 @@ class ConfigController extends Controller
                 'logo' => config('daoboard.logo'),
                 'force_https' => (int)config('daoboard.force_https', 0),
                 'stop_register' => (int)config('daoboard.stop_register', 0),
-                'app_name' => config('daoboard.app_name', 'V2Board'),
-                'app_description' => config('daoboard.app_description', 'V2Board is best!'),
+                'app_name' => config('daoboard.app_name', 'DaoBoard'),
+                'app_description' => config('daoboard.app_description', 'DaoBoard is best!'),
                 'app_url' => config('daoboard.app_url'),
                 'subscribe_url' => config('daoboard.subscribe_url'),
                 'subscribe_path' => config('daoboard.subscribe_path'),
