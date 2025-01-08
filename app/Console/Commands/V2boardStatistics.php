@@ -16,7 +16,7 @@ class V2boardStatistics extends Command
      *
      * @var string
      */
-    protected $signature = 'daoboard:statistics';
+    protected $signature = 'v2board:statistics';
 
     /**
      * The console command description.

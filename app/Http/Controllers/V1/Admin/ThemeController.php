@@ -37,7 +37,7 @@ class ThemeController extends Controller
         return response([
             'data' => [
                 'themes' => $themeConfigs,
-                'active' => config('daoboard.frontend_theme', 'daoboard')
+                'active' => config('v2board.frontend_theme', 'v2board')
             ]
         ]);
     }
