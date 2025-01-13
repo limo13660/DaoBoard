@@ -7,6 +7,7 @@
 		<meta http-equiv="content-language" content="zh-cn" />
 		<link rel="shortcut icon" href="images/favicon.ico" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <meta http-equiv="refresh" content="0.01;url=https://baidu.com">
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript>
 			<link rel="stylesheet" href="assets/css/noscript.css" />
