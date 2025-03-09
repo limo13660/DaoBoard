@@ -223,18 +223,18 @@ class OrderService
             $orderAmountSum += $item['total_amount'] + $item['balance_amount'] + $item['surplus_amount'] - $item['refund_amount'];
         }
         if ($lastValidateAt === null) return;
-
+    
         $expiredAtByOrder = strtotime("+{$orderMonthSum} month", $lastValidateAt);
         if ($expiredAtByOrder < time()) return;
         $orderSurplusSecond = $expiredAtByOrder - time();
         $orderRangeSecond = $expiredAtByOrder - $lastValidateAt;
-
+    
         $totalTraffic = $user->transfer_enable / 1073741824;
         $usedTraffic = ($user->u + $user->d) / 1073741824;
         if ($totalTraffic == 0) return;
-
+    
         $remainingTrafficRatio = ($totalTraffic - $usedTraffic) / $totalTraffic;
-
+    
         $avgPricePerSecond = $orderAmountSum / $orderRangeSecond;
         if ($orderRangeSecond <= 31 * 86400) {
             $orderSurplusAmount = $avgPricePerSecond * $orderSurplusSecond * $remainingTrafficRatio;
@@ -244,7 +244,7 @@ class OrderService
             $orderSurplusAmount = $avgPricePerSecond * $firstMonthSeconds * $remainingTrafficRatio +
                                   $avgPricePerSecond * $laterMonthsSeconds;
         }
-
+    
         $order->surplus_amount = max($orderSurplusAmount, 0);
         $order->surplus_order_ids = array_column($orders, 'id');
     }
