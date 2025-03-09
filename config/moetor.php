@@ -128,17 +128,7 @@ return [
                 "text" => "Disney+",
                 "icon" => "https://cdnjson.com/images/2023/07/11/eb7202d9c9bfbc97c6f1e644dce1f58f9fbcf193ae9edff9bdda2c088cdbabf0_200.png",
                 "link" => "https://www.disneyplus.com",
-            ],
-            [
-                "text" => "泥视频",
-                "icon" => "https://cdnjson.com/images/2023/07/11/icon.webp",
-                "link" => "https://www.nivod4.tv/?utm_source=JadeDuck",
-            ],
-            [
-                "text" => "18+",
-                "icon" => "https://cdnjson.com/images/2023/07/11/depositphotos_68110071-stock-illustration-18-age-restriction-sign.webp",
-                "link" => "https://theporndude.com/zh",
-            ],
+            ]
         ]
     ],
 ];
