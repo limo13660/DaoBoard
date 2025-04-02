@@ -49,17 +49,17 @@ class ClientController extends Controller
         $expiredDate = $user['expired_at'] ? date('Y-m-d', $user['expired_at']) : '长期有效';
         $userService = new UserService();
         $resetDay = $userService->getResetDay($user);
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "{$expiredDate} 到期",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "剩余流量：{$remainingTraffic}",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "官网: 云上部落.top",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "客服🐧: 1612633758",
-        ]));
+    array_unshift($servers, array_merge($servers[0], [
+        'name' => "官网: 云上部落.top",
+    ]));
+    array_unshift($servers, array_merge($servers[0], [
+        'name' => "客服🐧: 1612633758",
+    ]));
+    array_unshift($servers, array_merge($servers[0], [
+        'name' => "剩余流量：{$remainingTraffic}",
+    ]));
+    array_unshift($servers, array_merge($servers[0], [
+        'name' => "{$expiredDate} 到期",
+    ]));
     }
 }
