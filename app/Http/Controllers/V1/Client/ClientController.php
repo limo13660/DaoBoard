@@ -51,10 +51,10 @@ class ClientController extends Controller
     // 计算剩余天数
     if ($user['expired_at']) {
         $remainingDays = ceil(($user['expired_at'] - time()) / 86400);
-        $expiredDate = $remainingDays > 0 ? "剩余 {$remainingDays} 天" : "已到期";
+        $expiredDate = $remainingDays > 0 ? "套餐剩余 {$remainingDays} 天过期" : "已过期";
     } else {
-        $expiredDate = '长期有效';
         $recycleNotice = "超过六个月未使用自动回收流量";
+        $expiredDate = '套餐长期有效';
     }
 
     $userService = new UserService();
@@ -68,7 +68,7 @@ class ClientController extends Controller
         'name' => "客服🐧: 1612633758",
     ]));
     array_unshift($servers, array_merge($servers[0], [
-        'name' => "剩余流量：{$remainingTraffic}",
+        'name' => "流量剩余：{$remainingTraffic}",
     ]));
     array_unshift($servers, array_merge($servers[0], [
         'name' => "{$expiredDate}",
