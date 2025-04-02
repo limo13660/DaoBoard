@@ -40,6 +40,7 @@ class ClientController extends Controller
     }
 
     private function setSubscribeInfoToServers(&$servers, $user)
+
 {
     if (!isset($servers[0])) return;
     if (!(int)config('v2board.show_info_to_server_enable', 0)) return;
@@ -53,13 +54,13 @@ class ClientController extends Controller
         $expiredDate = $remainingDays > 0 ? "剩余 {$remainingDays} 天" : "已到期";
     } else {
         $expiredDate = '长期有效';
-        $expiredDate = '超过六个月未使用自动回收流量';
+        $recycleNotice = "超过六个月未使用自动回收流量";
     }
 
     $userService = new UserService();
     $resetDay = $userService->getResetDay($user);
 
-    // 按顺序插入，使最终数组顺序为：官网 > 客服 > 剩余流量 > 剩余天数
+    // 按顺序插入，使最终数组顺序为：官网 > 客服 > 剩余流量 > 到期信息 > 回收提示（仅长期有效时）
     array_unshift($servers, array_merge($servers[0], [
         'name' => "官网: 云上部落.top",
     ]));
@@ -72,6 +73,14 @@ class ClientController extends Controller
     array_unshift($servers, array_merge($servers[0], [
         'name' => "{$expiredDate}",
     ]));
+
+    // 如果是长期有效，则再添加一条流量回收提醒
+    if (isset($recycleNotice)) {
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => $recycleNotice,
+        ]));
+    }
 }
+
 
 }
