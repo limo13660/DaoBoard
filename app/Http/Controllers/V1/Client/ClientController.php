@@ -53,6 +53,7 @@ class ClientController extends Controller
         $expiredDate = $remainingDays > 0 ? "剩余 {$remainingDays} 天" : "已到期";
     } else {
         $expiredDate = '长期有效';
+        $expiredDate = '超过六个月未使用自动回收流量';
     }
 
     $userService = new UserService();
