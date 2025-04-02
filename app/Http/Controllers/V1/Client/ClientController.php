@@ -40,15 +40,25 @@ class ClientController extends Controller
     }
 
     private function setSubscribeInfoToServers(&$servers, $user)
-    {
-        if (!isset($servers[0])) return;
-        if (!(int)config('v2board.show_info_to_server_enable', 0)) return;
-        $useTraffic = $user['u'] + $user['d'];
-        $totalTraffic = $user['transfer_enable'];
-        $remainingTraffic = Helper::trafficConvert($totalTraffic - $useTraffic);
-        $expiredDate = $user['expired_at'] ? date('Y-m-d', $user['expired_at']) : '长期有效';
-        $userService = new UserService();
-        $resetDay = $userService->getResetDay($user);
+{
+    if (!isset($servers[0])) return;
+    if (!(int)config('v2board.show_info_to_server_enable', 0)) return;
+    $useTraffic = $user['u'] + $user['d'];
+    $totalTraffic = $user['transfer_enable'];
+    $remainingTraffic = Helper::trafficConvert($totalTraffic - $useTraffic);
+
+    // 计算剩余天数
+    if ($user['expired_at']) {
+        $remainingDays = ceil(($user['expired_at'] - time()) / 86400);
+        $expiredDate = $remainingDays > 0 ? "剩余 {$remainingDays} 天" : "已到期";
+    } else {
+        $expiredDate = '长期有效';
+    }
+
+    $userService = new UserService();
+    $resetDay = $userService->getResetDay($user);
+
+    // 按顺序插入，使最终数组顺序为：官网 > 客服 > 剩余流量 > 剩余天数
     array_unshift($servers, array_merge($servers[0], [
         'name' => "官网: 云上部落.top",
     ]));
@@ -59,7 +69,8 @@ class ClientController extends Controller
         'name' => "剩余流量：{$remainingTraffic}",
     ]));
     array_unshift($servers, array_merge($servers[0], [
-        'name' => "{$expiredDate} 到期",
+        'name' => "{$expiredDate}",
     ]));
-    }
+}
+
 }
