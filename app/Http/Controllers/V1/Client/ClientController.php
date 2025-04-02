@@ -60,26 +60,24 @@ class ClientController extends Controller
     $userService = new UserService();
     $resetDay = $userService->getResetDay($user);
 
-    // 按顺序插入，使最终数组顺序为：官网 > 客服 > 剩余流量 > 到期信息 > 回收提示（仅长期有效时）
-    array_unshift($servers, array_merge($servers[0], [
-        'name' => "官网: 云上部落.top",
-    ]));
-    array_unshift($servers, array_merge($servers[0], [
-        'name' => "客服🐧: 1612633758",
-    ]));
-    array_unshift($servers, array_merge($servers[0], [
-        'name' => "流量剩余：{$remainingTraffic}",
-    ]));
-    array_unshift($servers, array_merge($servers[0], [
-        'name' => "{$expiredDate}",
-    ]));
-
     // 如果是长期有效，则再添加一条流量回收提醒
     if (isset($recycleNotice)) {
         array_unshift($servers, array_merge($servers[0], [
             'name' => $recycleNotice,
         ]));
     }
+    array_unshift($servers, array_merge($servers[0], [
+        'name' => "{$expiredDate}",
+    ]));
+    array_unshift($servers, array_merge($servers[0], [
+        'name' => "流量剩余：{$remainingTraffic}",
+    ]));
+    array_unshift($servers, array_merge($servers[0], [
+        'name' => "客服🐧: 1612633758",
+    ]));
+    array_unshift($servers, array_merge($servers[0], [
+        'name' => "官网: 云上部落.top",
+    ]));
 }
 
 
