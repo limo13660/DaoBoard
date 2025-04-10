@@ -97,12 +97,12 @@ return [
             "positionLink" => ""  # 右边按钮跳转地址，不填则不进行跳转
         ],
         [
-            "show" => false,
-            "title" => "示例",
-            "content" => "这是第二个弹窗，这里是弹窗内容",
-            "negative" => "",
-            "position" => "",
-            "positionLink" => ""
+            "show" => true,
+            "title" => "加入官方TG频道",
+            "content" => "加入频道第一时间获取优惠信息！",
+            "negative" => "取消",
+            "position" => "加入",
+            "positionLink" => "https://t.me/+LPNWD1UyHaZmMzE1"
         ],
     ],
 
