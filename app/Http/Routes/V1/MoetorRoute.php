@@ -10,7 +10,7 @@ class MoetorRoute
         $router->group([
                 'prefix' => 'moetor'
             ], function ($router) {
-            
+
             $router->get('/config', 'V1\\Moetor\\MoetorController@get');
         });
     }

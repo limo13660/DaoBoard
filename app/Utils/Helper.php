@@ -164,7 +164,11 @@ class Helper
         $name = rawurlencode($server['name']);
         $str = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode("{$cipher}:{$password}"));
         $add = self::formatHost($server['host']);
-        return "ss://{$str}@{$add}:{$server['port']}#{$name}\r\n";
+        $uri = "ss://{$str}@{$add}:{$server['port']}";
+        if ($server['obfs'] == 'http') {
+            $uri .= "?plugin=obfs-local;obfs=http;obfs-host={$server['obfs-host']};path={$server['obfs-path']}";
+        }
+        return $uri."#{$name}\r\n";
     }
 
     public static function buildVmessUri($uuid, $server)
@@ -205,6 +209,7 @@ class Helper
             case 'ws':
                 $config['path'] = $networkSettings['path'] ?? null;
                 $config['host'] = $networkSettings['headers']['Host'] ?? null;
+                isset($networkSettings['security']) && $config['scy'] = $networkSettings['security'];
                 break;
     
             case 'grpc':
@@ -227,7 +232,7 @@ class Helper
                 $config['path'] = $networkSettings['path'] ?? null;
                 $config['host'] = $networkSettings['host'] ?? null;
                 $config['mode'] = $networkSettings['mode'] ?? 'auto';
-                $config['extra'] = isset($networkSettings['extra']) ? self::encodeURIComponent($networkSettings['extra']) : null;
+                $config['extra'] = isset($networkSettings['extra']) ? json_encode($networkSettings['extra'], JSON_UNESCAPED_SLASHES) : null;
                 break;
         }
 
@@ -382,6 +387,6 @@ class Helper
         $config['path'] = $settings['path'] ?? '';
         $config['host'] = $settings['host'] ?? '';
         $config['mode'] = $settings['mode'] ?? 'auto';
-        $config['extra'] = isset($settings['extra']) ? self::encodeURIComponent($settings['extra']) : null;
+        $config['extra'] = isset($settings['extra']) ? json_encode($settings['extra'], JSON_UNESCAPED_SLASHES) : null;
     }
 }

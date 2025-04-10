@@ -13,5 +13,5 @@ class MoetorController extends Controller
         $res['data'] = config('moetor');
         return response()->json($res);
     }
-    
+
 }
