@@ -94,9 +94,6 @@ class ClientController extends Controller
         'name' => "🇦🇶客服📮:ydtdcloud@gmail.com",
     ]));
     array_unshift($servers, array_merge($servers[0], [
-        'name' => "🇦🇶客服🐧: 1612633758",
-    ]));
-    array_unshift($servers, array_merge($servers[0], [
         'name' => "🇦🇶官网: 云上部落.top",
     ]));
 }
