@@ -36,7 +36,7 @@ class SingboxOld
     protected function loadConfig()
     {
         $defaultConfig = base_path('resources/rules/default.sing-box.old.json');
-        $customConfig = base_path('resources/rules/custom.sing-box.json');
+        $customConfig = base_path('resources/rules/custom.sing-box.old.json');
         $jsonData = file_exists($customConfig) ? file_get_contents($customConfig) : file_get_contents($defaultConfig);
 
         return json_decode($jsonData, true);
@@ -45,7 +45,7 @@ class SingboxOld
     protected function buildProxies()
     {
         $proxies = [];
-    
+
         foreach ($this->servers as $item) {
             if ($item['type'] === 'shadowsocks') {
                 $ssConfig = $this->buildShadowsocks($this->user['uuid'], $item);
@@ -68,7 +68,7 @@ class SingboxOld
                 $proxies[] = $hysteriaConfig;
             }
         }
-    
+
         return $proxies;
     }
 
@@ -217,7 +217,7 @@ class SingboxOld
         return $array;
     }
 
-    protected function buildTrojan($password, $server) 
+    protected function buildTrojan($password, $server)
     {
         $array = [];
         $array['tag'] = $server['name'];
