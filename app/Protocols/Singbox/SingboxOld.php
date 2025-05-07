@@ -45,7 +45,7 @@ class SingboxOld
     protected function buildProxies()
     {
         $proxies = [];
-    
+
         foreach ($this->servers as $item) {
             if ($item['type'] === 'shadowsocks') {
                 $ssConfig = $this->buildShadowsocks($this->user['uuid'], $item);
@@ -68,7 +68,7 @@ class SingboxOld
                 $proxies[] = $hysteriaConfig;
             }
         }
-    
+
         return $proxies;
     }
 
@@ -217,7 +217,7 @@ class SingboxOld
         return $array;
     }
 
-    protected function buildTrojan($password, $server) 
+    protected function buildTrojan($password, $server)
     {
         $array = [];
         $array['tag'] = $server['name'];

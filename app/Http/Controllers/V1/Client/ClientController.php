@@ -55,25 +55,45 @@ class ClientController extends Controller
     }
 
     private function setSubscribeInfoToServers(&$servers, $user)
-    {
-        if (!isset($servers[0])) return;
-        if (!(int)config('v2board.show_info_to_server_enable', 0)) return;
-        $useTraffic = $user['u'] + $user['d'];
-        $totalTraffic = $user['transfer_enable'];
-        $remainingTraffic = Helper::trafficConvert($totalTraffic - $useTraffic);
-        $expiredDate = $user['expired_at'] ? date('Y-m-d', $user['expired_at']) : '长期有效';
-        $userService = new UserService();
-        $resetDay = $userService->getResetDay($user);
+
+{
+    if (!isset($servers[0])) return;
+    if (!(int)config('v2board.show_info_to_server_enable', 0)) return;
+    $useTraffic = $user['u'] + $user['d'];
+    $totalTraffic = $user['transfer_enable'];
+    $remainingTraffic = Helper::trafficConvert($totalTraffic - $useTraffic);
+
+    // 计算剩余天数
+    if ($user['expired_at']) {
+        $remainingDays = ceil(($user['expired_at'] - time()) / 86400);
+        $expiredDate = $remainingDays > 0 ? "套餐剩余 {$remainingDays} 天过期" : "已过期";
+    } else {
+        $recycleNotice = "超过六个月未使用自动回收全部流量";
+        $expiredDate = '套餐长期有效';
+    }
+
+    $userService = new UserService();
+    $resetDay = $userService->getResetDay($user);
+
+    // 如果是长期有效，则再添加一条流量回收提醒
+    if (isset($recycleNotice)) {
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "套餐到期：{$expiredDate}",
-        ]));
-        if ($resetDay) {
-            array_unshift($servers, array_merge($servers[0], [
-                'name' => "距离下次重置剩余：{$resetDay} 天",
-            ]));
-        }
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "剩余流量：{$remainingTraffic}",
+            'name' => $recycleNotice,
         ]));
     }
+    array_unshift($servers, array_merge($servers[0], [
+        'name' => "🇦🇶{$expiredDate}",
+    ]));
+    array_unshift($servers, array_merge($servers[0], [
+        'name' => "🇦🇶流量剩余：{$remainingTraffic}",
+    ]));
+    array_unshift($servers, array_merge($servers[0], [
+        'name' => "🇦🇶客服📮:ydtdcloud@gmail.com",
+    ]));
+    array_unshift($servers, array_merge($servers[0], [
+        'name' => "🇦🇶官网: 云上部落.top",
+    ]));
+}
+
+
 }
