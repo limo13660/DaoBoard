@@ -82,10 +82,10 @@ class ClientController extends Controller
         ]));
     }
     array_unshift($servers, array_merge($servers[0], [
-        'name' => "🇦🇶{$expiredDate}",
+        'name' => "⚠️如果使用不了请更新订阅",
     ]));
     array_unshift($servers, array_merge($servers[0], [
-        'name' => "⚠️使用不了请更新订阅",
+        'name' => "🇦🇶{$expiredDate}",
     ]));
     array_unshift($servers, array_merge($servers[0], [
         'name' => "🇦🇶流量剩余：{$remainingTraffic}",
