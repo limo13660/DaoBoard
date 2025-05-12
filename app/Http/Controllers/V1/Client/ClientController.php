@@ -25,7 +25,7 @@ class ClientController extends Controller
         if ($userService->isAvailable($user)) {
             $serverService = new ServerService();
             $servers = $serverService->getAvailableServers($user);
-            if($flag) {
+            if ($flag) {
                 if (!strpos($flag, 'sing')) {
                     $this->setSubscribeInfoToServers($servers, $user);
                     foreach (array_reverse(glob(app_path('Protocols') . '/*.php')) as $file) {
@@ -55,48 +55,54 @@ class ClientController extends Controller
     }
 
     private function setSubscribeInfoToServers(&$servers, $user)
+    {
+        // 设置上海时区
+        date_default_timezone_set('Asia/Shanghai');
 
-{
-    if (!isset($servers[0])) return;
-    if (!(int)config('v2board.show_info_to_server_enable', 0)) return;
-    $useTraffic = $user['u'] + $user['d'];
-    $totalTraffic = $user['transfer_enable'];
-    $remainingTraffic = Helper::trafficConvert($totalTraffic - $useTraffic);
+        if (!isset($servers[0])) return;
+        if (!(int)config('v2board.show_info_to_server_enable', 0)) return;
+        $useTraffic = $user['u'] + $user['d'];
+        $totalTraffic = $user['transfer_enable'];
+        $remainingTraffic = Helper::trafficConvert($totalTraffic - $useTraffic);
 
-    // 计算剩余天数
-    if ($user['expired_at']) {
-        $remainingDays = ceil(($user['expired_at'] - time()) / 86400);
-        $expiredDate = $remainingDays > 0 ? "套餐剩余 {$remainingDays} 天过期" : "已过期";
-    } else {
-        $recycleNotice = "超过六个月未使用自动回收全部流量";
-        $expiredDate = '套餐长期有效';
-    }
+        // 计算剩余天数
+        if ($user['expired_at']) {
+            $remainingDays = ceil(($user['expired_at'] - time()) / 86400);
+            $expiredDate = $remainingDays > 0 ? "套餐剩余 {$remainingDays} 天过期" : "已过期";
+        } else {
+            $recycleNotice = "超过六个月未使用自动回收全部流量";
+            $expiredDate = '套餐长期有效';
+        }
 
-    $userService = new UserService();
-    $resetDay = $userService->getResetDay($user);
+        $userService = new UserService();
+        $resetDay = $userService->getResetDay($user);
 
-    // 如果是长期有效，则再添加一条流量回收提醒
-    if (isset($recycleNotice)) {
+        // 插入更新时间（最顶部显示）
         array_unshift($servers, array_merge($servers[0], [
-            'name' => $recycleNotice,
+            'name' => "订阅更新时间：" . date('Y-m-d H:i:s'),
+        ]));
+
+        // 如果是长期有效，则再添加一条流量回收提醒
+        if (isset($recycleNotice)) {
+            array_unshift($servers, array_merge($servers[0], [
+                'name' => $recycleNotice,
+            ]));
+        }
+
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "⚠️如果使用不了请更新订阅",
+        ]));
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "🇦🇶{$expiredDate}",
+        ]));
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "🇦🇶流量剩余：{$remainingTraffic}",
+        ]));
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "🇦🇶客服📮:ydtdcloud@gmail.com",
+        ]));
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "🇦🇶官网: 云上部落.top",
         ]));
     }
-    array_unshift($servers, array_merge($servers[0], [
-        'name' => "⚠️如果使用不了请更新订阅",
-    ]));
-    array_unshift($servers, array_merge($servers[0], [
-        'name' => "🇦🇶{$expiredDate}",
-    ]));
-    array_unshift($servers, array_merge($servers[0], [
-        'name' => "🇦🇶流量剩余：{$remainingTraffic}",
-    ]));
-    array_unshift($servers, array_merge($servers[0], [
-        'name' => "🇦🇶客服📮:ydtdcloud@gmail.com",
-    ]));
-    array_unshift($servers, array_merge($servers[0], [
-        'name' => "🇦🇶官网: 云上部落.top",
-    ]));
-}
-
-
 }
