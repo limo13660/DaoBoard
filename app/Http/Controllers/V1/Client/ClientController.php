@@ -76,10 +76,12 @@ class ClientController extends Controller
 
         $userService = new UserService();
         $resetDay = $userService->getResetDay($user);
-
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "⚠️如果使用不了请更新订阅",
+        ]));
         // 插入更新时间（最顶部显示）
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "更新日期:" . date('m月d日 H:i'),
+            'name' => "订阅更新日期：" . ltrim(date('m'), '0') . '月' . ltrim(date('d'), '0') . '日 ' . date('H:i'),
         ]));
 
         // 如果是长期有效，则再添加一条流量回收提醒
@@ -89,9 +91,6 @@ class ClientController extends Controller
             ]));
         }
 
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "⚠️如果使用不了请更新订阅",
-        ]));
         array_unshift($servers, array_merge($servers[0], [
             'name' => "🇦🇶{$expiredDate}",
         ]));
