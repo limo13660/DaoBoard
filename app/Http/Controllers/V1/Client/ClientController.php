@@ -80,9 +80,9 @@ class ClientController extends Controller
             'name' => "⚠️如果使用不了请更新订阅",
         ]));
         // 插入更新时间（最顶部显示）
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "订阅更新日期：" . ltrim(date('m'), '0') . '月' . ltrim(date('d'), '0') . '日 ' . date('H:i'),
-        ]));
+array_unshift($servers, array_merge($servers[0], [
+    'name' => "🕒您在 " . ltrim(date('m'), '0') . '月' . ltrim(date('d'), '0') . '日 ' . date('H:i') . ' 更新了订阅',
+]));
 
         // 如果是长期有效，则再添加一条流量回收提醒
         if (isset($recycleNotice)) {
