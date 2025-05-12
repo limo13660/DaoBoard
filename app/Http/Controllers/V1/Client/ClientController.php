@@ -79,7 +79,7 @@ class ClientController extends Controller
 
         // 插入更新时间（最顶部显示）
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "订阅更新时间：" . date('Y-m-d H:i:s'),
+            'name' => "更新日期:" . date('m月d日 H:i'),
         ]));
 
         // 如果是长期有效，则再添加一条流量回收提醒
