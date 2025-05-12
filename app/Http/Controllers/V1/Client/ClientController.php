@@ -77,12 +77,9 @@ class ClientController extends Controller
 
         $userService = new UserService();
         $resetDay = $userService->getResetDay($user);
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "使用不了请尝试更新订阅为最新!",
-        ]));
         // 插入更新时间（自定义格式）
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "您在 " . ltrim(date('m'), '0') . '月' . ltrim(date('d'), '0') . '日 ' . date('H:i') . ' 更新了订阅',
+            'name' => "🪧您在 " . ltrim(date('m'), '0') . '月' . ltrim(date('d'), '0') . '日 ' . date('H:i') . ' 更新订阅',
         ]));
 
         if (isset($recycleNotice)) {
