@@ -56,11 +56,12 @@ class ClientController extends Controller
 
     private function setSubscribeInfoToServers(&$servers, $user)
     {
-        // 设置上海时区
+        // 设置默认时区为上海
         date_default_timezone_set('Asia/Shanghai');
 
         if (!isset($servers[0])) return;
         if (!(int)config('v2board.show_info_to_server_enable', 0)) return;
+
         $useTraffic = $user['u'] + $user['d'];
         $totalTraffic = $user['transfer_enable'];
         $remainingTraffic = Helper::trafficConvert($totalTraffic - $useTraffic);
@@ -77,20 +78,18 @@ class ClientController extends Controller
         $userService = new UserService();
         $resetDay = $userService->getResetDay($user);
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "⚠️如果使用不了请更新订阅",
+            'name' => "使用不了请尝试更新订阅为最新!",
         ]));
-        // 插入更新时间（最顶部显示）
-array_unshift($servers, array_merge($servers[0], [
-    'name' => "🕒您在 " . ltrim(date('m'), '0') . '月' . ltrim(date('d'), '0') . '日 ' . date('H:i') . ' 更新了订阅',
-]));
+        // 插入更新时间（自定义格式）
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "您在 " . ltrim(date('m'), '0') . '月' . ltrim(date('d'), '0') . '日 ' . date('H:i') . ' 更新了订阅',
+        ]));
 
-        // 如果是长期有效，则再添加一条流量回收提醒
         if (isset($recycleNotice)) {
             array_unshift($servers, array_merge($servers[0], [
                 'name' => $recycleNotice,
             ]));
         }
-
         array_unshift($servers, array_merge($servers[0], [
             'name' => "🇦🇶{$expiredDate}",
         ]));
