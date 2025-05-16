@@ -5,6 +5,7 @@
                  "outbound": [
                      "any"
                  ],
+
                  "server": "local"
              },
              {
@@ -94,31 +95,34 @@
          }
      ],
      "outbounds": [
-         {
-             "type": "selector",
-             "tag": "节点选择",
-             "outbounds": [
-                 "自动选择"
-             ]
-         },
-         {
-             "type": "urltest",
-             "tag": "自动选择",
-             "outbounds": []
-         },
-         {
-             "type": "dns",
-             "tag": "dns-out"
-         },
-         {
-             "type": "direct",
-             "tag": "direct"
-         },
-         {
-             "type": "block",
-             "tag": "block"
-         }
-     ],
+       {
+         "type": "urltest",
+         "tag": "节点选择",
+         "outbounds": [
+           "自动选择"
+         ],
+         "url": "http://www.gstatic.com/generate_204",
+         "interval": "5m"
+       },
+       {
+         "type": "urltest",
+         "tag": "自动选择",
+         "outbounds": []
+       },
+       {
+         "type": "dns",
+         "tag": "dns-out"
+       },
+       {
+         "type": "direct",
+         "tag": "direct"
+       },
+       {
+         "type": "block",
+         "tag": "block"
+       }
+     ]
+
      "route": {
          "auto_detect_interface": true,
          "rules": [
