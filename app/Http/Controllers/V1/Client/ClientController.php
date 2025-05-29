@@ -69,7 +69,7 @@ class ClientController extends Controller
         // 计算剩余天数
         if ($user['expired_at']) {
             $remainingDays = ceil(($user['expired_at'] - time()) / 86400);
-            $expiredDate = $remainingDays > 0 ? "套餐剩余 {$remainingDays} 天过期" : "已过期";
+            $expiredDate = $remainingDays > 0 ? "套餐 {$remainingDays} 天后过期" : "已过期";
         } else {
             $recycleNotice = "超过六个月未使用自动回收全部流量";
             $expiredDate = '套餐长期有效';
@@ -88,18 +88,13 @@ class ClientController extends Controller
             ]));
         }
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "🇦🇶{$expiredDate}",
-        ]));
-        if ($resetDay) {
-            array_unshift($servers, array_merge($servers[0], [
-                'name' => "{$resetDay} 天后重制流量",
-            ]));
-        }
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "🇦🇶流量剩余：{$remainingTraffic}",
+            'name' => "{$expiredDate}",
         ]));
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "🇦🇶客服📮:ydtdcloud@gmail.com",
+            'name' => "流量剩余：{$remainingTraffic}",
+        ]));
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "客服:ydtdcloud@gmail.com",
         ]));
         array_unshift($servers, array_merge($servers[0], [
             'name' => "备用官网: ydgw.us",
