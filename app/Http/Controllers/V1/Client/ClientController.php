@@ -92,7 +92,7 @@ class ClientController extends Controller
         ]));
         if ($resetDay) {
             array_unshift($servers, array_merge($servers[0], [
-                'name' => "流量重置剩余：{$resetDay} 天",
+                'name' => "{$resetDay} 天后重制流量",
             ]));
         }
         array_unshift($servers, array_merge($servers[0], [
