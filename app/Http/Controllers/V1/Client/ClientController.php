@@ -90,6 +90,11 @@ class ClientController extends Controller
         array_unshift($servers, array_merge($servers[0], [
             'name' => "🇦🇶{$expiredDate}",
         ]));
+        if ($resetDay) {
+            array_unshift($servers, array_merge($servers[0], [
+                'name' => "流量重置剩余：{$resetDay} 天",
+            ]));
+        }
         array_unshift($servers, array_merge($servers[0], [
             'name' => "🇦🇶流量剩余：{$remainingTraffic}",
         ]));
@@ -97,7 +102,10 @@ class ClientController extends Controller
             'name' => "🇦🇶客服📮:ydtdcloud@gmail.com",
         ]));
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "🇦🇶官网: 云上部落.top",
+            'name' => "备用官网: ydgw.us",
+        ]));
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "永久官网: yunshangbuluo.com",
         ]));
     }
 }

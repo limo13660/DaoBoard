@@ -38,7 +38,7 @@
         <!-- 底部 -->
         <div style="padding: 10px; background-color: #f9fafb; text-align: center;">
             <p style="margin: 0; font-size: 13px; color: #8792a2;">
-                永久官网地址：云上部落.top
+                永久官网地址：yunshangbuluo.com
             </p>
             <p style="margin: 0; font-size: 13px; color: #8792a2;">
                 官网打不开可能需要使用科学上网
