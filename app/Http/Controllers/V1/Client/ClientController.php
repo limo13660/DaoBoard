@@ -25,7 +25,7 @@ class ClientController extends Controller
         if ($userService->isAvailable($user)) {
             $serverService = new ServerService();
             $servers = $serverService->getAvailableServers($user);
-            if ($flag) {
+            if($flag) {
                 if (!strpos($flag, 'sing')) {
                     $this->setSubscribeInfoToServers($servers, $user);
                     foreach (array_reverse(glob(app_path('Protocols') . '/*.php')) as $file) {
@@ -56,48 +56,24 @@ class ClientController extends Controller
 
     private function setSubscribeInfoToServers(&$servers, $user)
     {
-        // 设置默认时区为上海
-        date_default_timezone_set('Asia/Shanghai');
-
         if (!isset($servers[0])) return;
         if (!(int)config('v2board.show_info_to_server_enable', 0)) return;
-
         $useTraffic = $user['u'] + $user['d'];
         $totalTraffic = $user['transfer_enable'];
         $remainingTraffic = Helper::trafficConvert($totalTraffic - $useTraffic);
-
-        // 计算剩余天数
-        if ($user['expired_at']) {
-            $remainingDays = ceil(($user['expired_at'] - time()) / 86400);
-            $expiredDate = $remainingDays > 0 ? "套餐 {$remainingDays} 天后过期" : "已过期";
-        } else {
-            $recycleNotice = "超过六个月未使用自动回收全部流量";
-            $expiredDate = '套餐长期有效';
-        }
-
+        $expiredDate = $user['expired_at'] ? date('Y-m-d', $user['expired_at']) : '长期有效';
         $userService = new UserService();
         $resetDay = $userService->getResetDay($user);
-        // 插入更新时间（自定义格式）
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "您在 " . ltrim(date('m'), '0') . '月' . ltrim(date('d'), '0') . '日 ' . date('H:i') . ' 更新了订阅',
+            'name' => "套餐到期：{$expiredDate}",
         ]));
-
-        if (isset($recycleNotice)) {
+        if ($resetDay) {
             array_unshift($servers, array_merge($servers[0], [
-                'name' => $recycleNotice,
+                'name' => "距离下次重置剩余：{$resetDay} 天",
             ]));
         }
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "{$expiredDate}",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "流量剩余：{$remainingTraffic}",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "客服:ydtdcloud@gmail.com",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "永久官网: 云上部落.com",
+            'name' => "剩余流量：{$remainingTraffic}",
         ]));
     }
 }

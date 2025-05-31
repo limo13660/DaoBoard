@@ -320,6 +320,42 @@ class Helper
         return "{$uri}#{$name}\r\n";
     }
 
+    public static function buildTuicUri($password, $server)
+    {
+        $config = [
+            'sni' => $server['server_name'],
+            'alpn'=> 'h3',
+            'congestion_control' => $server['congestion_control'],
+            'allow_insecure' => $server['insecure'],
+            'disable_sni' => $server['disable_sni'],
+            'udp_relay_mode' => $server['udp_relay_mode'],
+        ];
+
+        $remote = self::formatHost($server['host']);
+        $port = $server['port'];
+        $name = self::encodeURIComponent($server['name']);
+
+        $query = http_build_query($config);
+        return "tuic://{$password}:{$password}@{$remote}:{$port}?{$query}#{$name}\r\n";
+    }
+
+    public static function buildAnytlsUri($password, $server)
+    {
+        $config = [
+            'insecure' => $server['insecure'],
+        ];
+        if (isset($server['server_name'])) {
+            $config['sni'] = $server['server_name'];
+        }
+
+        $remote = self::formatHost($server['host']);
+        $port = $server['port'];
+        $name = self::encodeURIComponent($server['name']);
+
+        $query = http_build_query($config);
+        return "anytls://{$password}@{$remote}:{$port}/?{$query}#{$name}\r\n";
+    }
+
     public static function configureNetworkSettings($server, &$config)
     {
         $network = $server['network'];
