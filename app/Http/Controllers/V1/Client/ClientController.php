@@ -97,10 +97,7 @@ class ClientController extends Controller
             'name' => "客服:ydtdcloud@gmail.com",
         ]));
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "备用官网: ydgw.us",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "永久官网: yunshangbuluo.com",
+            'name' => "永久官网: 云上部落.com",
         ]));
     }
 }
