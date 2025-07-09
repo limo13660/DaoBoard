@@ -21,10 +21,10 @@ Route::get('/', function (Request $request) {
         }
     }
     $renderParams = [
-        'title' => config('v2board.app_name', 'V2Board'),
+        'title' => config('v2board.app_name', 'DaoTech'),
         'theme' => config('v2board.frontend_theme', 'default'),
         'version' => config('app.version'),
-        'description' => config('v2board.app_description', 'V2Board is best'),
+        'description' => config('v2board.app_description', 'DaoTech is best'),
         'logo' => config('v2board.logo')
     ];
 
@@ -40,7 +40,7 @@ Route::get('/', function (Request $request) {
 //TODO:: 兼容
 Route::get('/' . config('v2board.secure_path', config('v2board.frontend_admin_path', hash('crc32b', config('app.key')))), function () {
     return view('admin', [
-        'title' => config('v2board.app_name', 'V2Board'),
+        'title' => config('v2board.app_name', 'DaoTech'),
         'theme_sidebar' => config('v2board.frontend_theme_sidebar', 'light'),
         'theme_header' => config('v2board.frontend_theme_header', 'dark'),
         'theme_color' => config('v2board.frontend_theme_color', 'default'),
