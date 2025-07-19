@@ -1,9 +1,9 @@
 {
-    "name": "v2board/v2board",
+    "name": "daoboard/daoboard",
     "type": "project",
-    "description": "v2board is a proxy protocol manage.",
+    "description": "daoboard is a proxy protocol manage.",
     "keywords": [
-        "v2board",
+        "daoboard",
         "v2ray",
         "shadowsocks",
         "trojan",

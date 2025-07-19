@@ -9,14 +9,14 @@ use Illuminate\Console\Command;
 use App\Models\Stat;
 use Illuminate\Support\Facades\DB;
 
-class V2boardStatistics extends Command
+class DaoboardStatistics extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'v2board:statistics';
+    protected $signature = 'daoboard:statistics';
 
     /**
      * The console command description.

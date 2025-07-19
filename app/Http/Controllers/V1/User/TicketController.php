@@ -58,7 +58,7 @@ class TicketController extends Controller
             }
 
             // 获取工单状态
-            $ticketStatus = config('v2board.ticket_status', 0);
+            $ticketStatus = config('daoboard.ticket_status', 0);
 
             switch ($ticketStatus) {
                 case 0:
@@ -169,14 +169,14 @@ class TicketController extends Controller
 
     public function withdraw(TicketWithdraw $request)
     {
-        if ((int)config('v2board.withdraw_close_enable', 0)) {
+        if ((int)config('daoboard.withdraw_close_enable', 0)) {
             abort(500, 'user.ticket.withdraw.not_support_withdraw');
         }
         if (
 			!in_array(
 				$request->input('withdraw_method'),
 				config(
-					'v2board.commission_withdraw_method',
+					'daoboard.commission_withdraw_method',
 					Dict::WITHDRAW_METHOD_WHITELIST_DEFAULT	 
 				)
 			)
@@ -184,7 +184,7 @@ class TicketController extends Controller
             abort(500, __('Unsupported withdrawal method'));
         }
         $user = User::find($request->user['id']);
-        $limit = config('v2board.commission_withdraw_limit', 100);
+        $limit = config('daoboard.commission_withdraw_limit', 100);
         if ($limit > ($user->commission_balance / 100)) {
             abort(500, __('The current required minimum withdrawal commission is :limit', ['limit' => $limit]));
         }
@@ -254,13 +254,13 @@ class TicketController extends Controller
 				
 				$money = $user->balance / 100;
 				$affmoney = $user->commission_balance / 100;
-				$telegramService->sendMessageWithAdmin("📮工单提醒 #{$ticket->id}\n———————————————\n邮箱：\n`{$user->email}`\n用户位置：\n`{$location}`\nIP:\n{$ip_address}\n套餐与流量：\n`{$planName} of {$transfer_enable}/{$remaining_traffic}`\n上传/下载：\n`{$u}/{$d}`\n到期时间：\n`{$expired_at}`\n余额/佣金余额：\n`{$money}/{$affmoney}`\n主题：\n`{$ticket->subject}`\n内容：\n`{$message}`", true);
+				$telegramService->sendMessageWithAdmin("��工单提醒 #{$ticket->id}\n———————————————\n邮箱：\n`{$user->email}`\n用户位置：\n`{$location}`\nIP:\n{$ip_address}\n套餐与流量：\n`{$planName} of {$transfer_enable}/{$remaining_traffic}`\n上传/下载：\n`{$u}/{$d}`\n到期时间：\n`{$expired_at}`\n余额/佣金余额：\n`{$money}/{$affmoney}`\n主题：\n`{$ticket->subject}`\n内容：\n`{$message}`", true);
 			} else {
 				// Handle case where user data is not found
 				$telegramService->sendMessageWithAdmin("User data not found for user ID: {$userid}", true);
 			}
 		} else {
-			$telegramService->sendMessageWithAdmin("📮工单提醒 #{$ticket->id}\n———————————————\n主题：\n`{$ticket->subject}`\n内容：\n`{$message}`", true);
+			$telegramService->sendMessageWithAdmin("��工单提醒 #{$ticket->id}\n———————————————\n主题：\n`{$ticket->subject}`\n内容：\n`{$message}`", true);
 		}
 	}
 

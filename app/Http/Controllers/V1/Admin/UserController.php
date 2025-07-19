@@ -288,8 +288,8 @@ class UserController extends Controller
                 'subject' => $request->input('subject'),
                 'template_name' => 'notify',
                 'template_value' => [
-                    'name' => config('v2board.app_name', 'V2Board'),
-                    'url' => config('v2board.app_url'),
+                    'name' => config('daoboard.app_name', 'DaoBoard'),
+                    'url' => config('daoboard.app_url'),
                     'content' => $request->input('content')
                 ]
             ], 'send_email_mass');

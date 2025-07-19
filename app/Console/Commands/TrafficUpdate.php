@@ -41,10 +41,10 @@ class TrafficUpdate extends Command
     public function handle()
     {
         ini_set('memory_limit', -1);
-        $uploads = Redis::hgetall('v2board_upload_traffic');
-        Redis::del('v2board_upload_traffic');
-        $downloads = Redis::hgetall('v2board_download_traffic');
-        Redis::del('v2board_download_traffic');
+        $uploads = Redis::hgetall('daoboard_upload_traffic');
+        Redis::del('daoboard_upload_traffic');
+        $downloads = Redis::hgetall('daoboard_download_traffic');
+        Redis::del('daoboard_download_traffic');
         if (empty($uploads) && empty($downloads)) {
             return;
         }
