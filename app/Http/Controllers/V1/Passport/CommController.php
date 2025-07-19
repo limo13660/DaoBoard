@@ -24,7 +24,7 @@ class CommController extends Controller
     private function isEmailVerify()
     {
         return response([
-            'data' => (int)config('daoboard.email_verify', 0) ? 1 : 0
+            'data' => (int)config('v2board.email_verify', 0) ? 1 : 0
         ]);
     }
 
@@ -36,8 +36,8 @@ class CommController extends Controller
         }
         RateLimiter::hit($ip, 60);
 
-        if ((int)config('daoboard.recaptcha_enable', 0)) {
-            $recaptcha = new ReCaptcha(config('daoboard.recaptcha_key'));
+        if ((int)config('v2board.recaptcha_enable', 0)) {
+            $recaptcha = new ReCaptcha(config('v2board.recaptcha_key'));
             $recaptchaResp = $recaptcha->verify($request->input('recaptcha_data'));
             if (!$recaptchaResp->isSuccess()) {
                 abort(500, __('Invalid code is incorrect'));
@@ -47,16 +47,16 @@ class CommController extends Controller
         $isforget = $request->input('isforget');
         $email_exists = User::where('email', $email)->exists();
         //检查是否在白名单内
-        if ((int)config('daoboard.email_whitelist_enable', 0)) {
+        if ((int)config('v2board.email_whitelist_enable', 0)) {
             if (!Helper::emailSuffixVerify(
                 $request->input('email'),
-                config('daoboard.email_whitelist_suffix', Dict::EMAIL_WHITELIST_SUFFIX_DEFAULT))
+                config('v2board.email_whitelist_suffix', Dict::EMAIL_WHITELIST_SUFFIX_DEFAULT))
             ) {
                 abort(500, __('Email suffix is not in the Whitelist'));
             }
         }
         // 检查是否是gmail别名邮箱
-        if ((int)config('daoboard.email_gmail_limit_enable', 0)) {
+        if ((int)config('v2board.email_gmail_limit_enable', 0)) {
             $prefix = explode('@', $request->input('email'))[0];
             if (strpos($prefix, '.') !== false || strpos($prefix, '+') !== false) {
                 abort(500, __('Gmail alias is not supported'));
@@ -74,16 +74,16 @@ class CommController extends Controller
             abort(500, __('Email verification code has been sent, please request again later'));
         }
         $code = rand(100000, 999999);
-        $subject = config('daoboard.app_name', 'DaoBoard') . __('Email verification code');
+        $subject = config('v2board.app_name', 'DaoBoard') . __('Email verification code');
 
         SendEmailJob::dispatch([
             'email' => $email,
             'subject' => $subject,
             'template_name' => 'verify',
             'template_value' => [
-                'name' => config('daoboard.app_name', 'DaoBoard'),
+                'name' => config('v2board.app_name', 'DaoBoard'),
                 'code' => $code,
-                'url' => config('daoboard.app_url')
+                'url' => config('v2board.app_url')
             ]
         ]);
 
@@ -109,7 +109,7 @@ class CommController extends Controller
 
     private function getEmailSuffix()
     {
-        $suffix = config('daoboard.email_whitelist_suffix', Dict::EMAIL_WHITELIST_SUFFIX_DEFAULT);
+        $suffix = config('v2board.email_whitelist_suffix', Dict::EMAIL_WHITELIST_SUFFIX_DEFAULT);
         if (!is_array($suffix)) {
             return preg_split('/,/', $suffix);
         }

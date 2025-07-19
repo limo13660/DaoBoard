@@ -19,12 +19,12 @@ class MailService
         SendEmailJob::dispatch([
             'email' => $user->email,
             'subject' => __('The traffic usage in :app_name has reached 95%', [
-                'app_name' => config('daoboard.app_name', 'Daoboard')
+                'app_name' => config('v2board.app_name', 'V2board')
             ]),
             'template_name' => 'remindTraffic',
             'template_value' => [
-                'name' => config('daoboard.app_name', 'DaoBoard'),
-                'url' => config('daoboard.app_url')
+                'name' => config('v2board.app_name', 'DaoBoard'),
+                'url' => config('v2board.app_url')
             ]
         ]);
     }
@@ -35,12 +35,12 @@ class MailService
         SendEmailJob::dispatch([
             'email' => $user->email,
             'subject' => __('The service in :app_name is about to expire', [
-               'app_name' =>  config('daoboard.app_name', 'Daoboard')
+               'app_name' =>  config('v2board.app_name', 'V2board')
             ]),
             'template_name' => 'remindExpire',
             'template_value' => [
-                'name' => config('daoboard.app_name', 'DaoBoard'),
-                'url' => config('daoboard.app_url')
+                'name' => config('v2board.app_name', 'DaoBoard'),
+                'url' => config('v2board.app_url')
             ]
         ]);
     }

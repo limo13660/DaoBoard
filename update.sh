@@ -27,7 +27,7 @@ if [ $php_main_version -ge 8 ]; then
     echo "Webman stopped.Please restart it by yourself."
 fi
 
-php artisan daoboard:update
+php artisan v2board:update
 
 if [ -f "/etc/init.d/bt" ]; then
   chown -R www $(pwd);

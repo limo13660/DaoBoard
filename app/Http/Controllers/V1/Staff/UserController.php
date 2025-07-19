@@ -74,8 +74,8 @@ class UserController extends Controller
                 'subject' => $request->input('subject'),
                 'template_name' => 'notify',
                 'template_value' => [
-                    'name' => config('daoboard.app_name', 'DaoBoard'),
-                    'url' => config('daoboard.app_url'),
+                    'name' => config('v2board.app_name', 'DaoBoard'),
+                    'url' => config('v2board.app_url'),
                     'content' => $request->input('content')
                 ]
             ]);

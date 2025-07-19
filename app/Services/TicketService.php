@@ -69,11 +69,11 @@ class TicketService {
             Cache::put($cacheKey, 1, 1800);
             SendEmailJob::dispatch([
                 'email' => $user->email,
-                'subject' => '您在' . config('daoboard.app_name', 'DaoBoard') . '的工单得到了回复',
+                'subject' => '您在' . config('v2board.app_name', 'DaoBoard') . '的工单得到了回复',
                 'template_name' => 'notify',
                 'template_value' => [
-                    'name' => config('daoboard.app_name', 'DaoBoard'),
-                    'url' => config('daoboard.app_url'),
+                    'name' => config('v2board.app_name', 'DaoBoard'),
+                    'url' => config('v2board.app_url'),
                     'content' => "主题：{$ticket->subject}\r\n回复内容：{$ticketMessage->message}"
                 ]
             ]);

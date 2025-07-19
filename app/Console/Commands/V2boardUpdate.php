@@ -12,14 +12,14 @@ class V2boardUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'daoboard:update';
+    protected $signature = 'v2board:update';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'daoboard 更新';
+    protected $description = 'v2board 更新';
 
     /**
      * Create a new command instance.

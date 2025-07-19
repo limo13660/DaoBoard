@@ -13,8 +13,8 @@ class GetLatestUrl extends Telegram {
         $telegramService = $this->telegramService;
         $text = sprintf(
             "%s的最新网址是：%s",
-            config('daoboard.app_name', 'DaoBoard'),
-            config('daoboard.app_url')
+            config('v2board.app_name', 'DaoBoard'),
+            config('v2board.app_url')
         );
         $telegramService->sendMessage($message->chat_id, $text, 'markdown');
     }
