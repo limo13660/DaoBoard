@@ -57,11 +57,11 @@ class AuthController extends Controller
         SendEmailJob::dispatch([
             'email' => $user->email,
             'subject' => __('Login to :name', [
-                'name' => config('v2board.app_name', 'DaoBoard')
+                'name' => config('v2board.app_name', 'V2Board')
             ]),
             'template_name' => 'login',
             'template_value' => [
-                'name' => config('v2board.app_name', 'DaoBoard'),
+                'name' => config('v2board.app_name', 'V2Board'),
                 'link' => $link,
                 'url' => config('v2board.app_url')
             ]

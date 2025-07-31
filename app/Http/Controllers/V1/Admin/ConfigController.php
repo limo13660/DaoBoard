@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Mail;
 
 class ConfigController extends Controller
 {
@@ -44,7 +43,7 @@ class ConfigController extends Controller
             'subject' => 'This is v2board test email',
             'template_name' => 'notify',
             'template_value' => [
-                'name' => config('v2board.app_name', 'DaoBoard'),
+                'name' => config('v2board.app_name', 'V2Board'),
                 'content' => 'This is v2board test email',
                 'url' => config('v2board.app_url')
             ]
@@ -95,8 +94,8 @@ class ConfigController extends Controller
                 'logo' => config('v2board.logo'),
                 'force_https' => (int)config('v2board.force_https', 0),
                 'stop_register' => (int)config('v2board.stop_register', 0),
-                'app_name' => config('v2board.app_name', 'DaoBoard'),
-                'app_description' => config('v2board.app_description', 'DaoBoard is best!'),
+                'app_name' => config('v2board.app_name', 'V2Board'),
+                'app_description' => config('v2board.app_description', 'V2Board is best!'),
                 'app_url' => config('v2board.app_url'),
                 'subscribe_url' => config('v2board.subscribe_url'),
                 'subscribe_path' => config('v2board.subscribe_path'),
@@ -110,10 +109,13 @@ class ConfigController extends Controller
                 'plan_change_enable' => (int)config('v2board.plan_change_enable', 1),
                 'reset_traffic_method' => (int)config('v2board.reset_traffic_method', 0),
                 'surplus_enable' => (int)config('v2board.surplus_enable', 1),
+                'allow_new_period' => (int)config('v2board.allow_new_period', 0),
                 'new_order_event_id' => (int)config('v2board.new_order_event_id', 0),
                 'renew_order_event_id' => (int)config('v2board.renew_order_event_id', 0),
                 'change_order_event_id' => (int)config('v2board.change_order_event_id', 0),
-                'show_info_to_server_enable' => (int)config('v2board.show_info_to_server_enable', 0)
+                'show_info_to_server_enable' => (int)config('v2board.show_info_to_server_enable', 0),
+                'show_subscribe_method' => (int)config('v2board.show_subscribe_method', 0),
+                'show_subscribe_expire' => (int)config('v2board.show_subscribe_expire', 5),
             ],
             'frontend' => [
                 'frontend_theme' => config('v2board.frontend_theme', 'v2board'),
