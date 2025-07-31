@@ -75,5 +75,11 @@ class ClientController extends Controller
         array_unshift($servers, array_merge($servers[0], [
             'name' => "剩余流量：{$remainingTraffic}",
         ]));
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "客服📮:ydtdcloud@gmail.com",
+        ]));
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "官网:云上部落.com",
+        ]));
     }
 }
