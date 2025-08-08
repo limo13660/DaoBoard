@@ -73,11 +73,10 @@
             "@php artisan key:generate --ansi"
         ]
     },
-"repositories": {
-    "packagist": {
-        "type": "composer",
-        "url": "https://mirrors.aliyun.com/composer/"
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.org"
+        }
     }
-}
-
 }

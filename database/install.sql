@@ -539,8 +539,7 @@ CREATE TABLE `v2_user` (
                            `created_at` int(11) NOT NULL,
                            `updated_at` int(11) NOT NULL,
                            PRIMARY KEY (`id`),
-                           UNIQUE KEY `email` (`email`),
-                           UNIQUE KEY `token` (`token`)
+                           UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

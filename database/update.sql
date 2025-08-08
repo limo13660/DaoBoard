@@ -805,6 +805,3 @@ CREATE TABLE `v2_server_anytls` (
                                       `updated_at` int(11) NOT NULL,
                                       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-ALTER TABLE `v2_user`
-ADD UNIQUE `token` (`token`);
