@@ -65,9 +65,6 @@ class ClientController extends Controller
         $userService = new UserService();
         $resetDay = $userService->getResetDay($user);
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "小火箭不显示延迟可以直接用",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
             'name' => "如果更新不了,重新倒入试试！",
         ]));
         array_unshift($servers, array_merge($servers[0], [
