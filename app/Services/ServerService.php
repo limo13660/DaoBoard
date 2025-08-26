@@ -159,27 +159,32 @@ class ServerService
         return $servers;
     }
 
-    public function getAvailableAnyTLS(User $user)
-    {
-        $servers = [];
-        $model = ServerAnytls::orderBy('sort', 'ASC');
-        $anytls = $model->get()->keyBy('id');
-        foreach ($anytls as $key => $v) {
-            if (!$v['show']) continue;
-            $anytls[$key]['type'] = 'anytls';
-            $anytls[$key]['last_check_at'] = Cache::get(CacheKey::get('SERVER_ANYTLS_LAST_CHECK_AT', $v['id']));
-            if (!in_array($user->group_id, $v['group_id'])) continue;
-            if (strpos($v['port'], '-') !== false) {
-                $anytls[$key]['port'] = Helper::randomPort($v['port']);
-            }
-            if (isset($anytls[$v['parent_id']])) {
-                $anytls[$key]['last_check_at'] = Cache::get(CacheKey::get('SERVER_ANYTLS_LAST_CHECK_AT', $v['parent_id']));
-                $anytls[$key]['created_at'] = $anytls[$v['parent_id']]['created_at'];
-            }
-            $servers[] = $anytls[$key]->toArray();
+public function getAvailableAnyTLS(User $user)
+{
+    $servers = [];
+    $model = ServerAnytls::orderBy('sort', 'ASC');
+    $anytls = $model->get()->keyBy('id');
+    foreach ($anytls as $key => $v) {
+        if (!$v['show']) continue;
+        $anytls[$key]['type'] = 'anytls';
+        $anytls[$key]['last_check_at'] = Cache::get(CacheKey::get('SERVER_ANYTLS_LAST_CHECK_AT', $v['id']));
+        if (!in_array($user->group_id, $v['group_id'])) continue;
+        if (strpos($v['port'], '-') !== false) {
+            $anytls[$key]['port'] = Helper::randomPort($v['port']);
         }
-        return $servers;
+        if (isset($anytls[$v['parent_id']])) {
+            $anytls[$key]['last_check_at'] = Cache::get(CacheKey::get('SERVER_ANYTLS_LAST_CHECK_AT', $v['parent_id']));
+            $anytls[$key]['created_at'] = $anytls[$v['parent_id']]['created_at'];
+        }
+
+        // ✅ 直接用 server_name 当 SNI
+        $anytls[$key]['sni'] = $v['server_name'] ?? null;
+        $anytls[$key]['allow_insecure'] = $v['insecure'] ?? 0;
+
+        $servers[] = $anytls[$key]->toArray();
     }
+    return $servers;
+}
 
     public function getAvailableServers(User $user)
     {
