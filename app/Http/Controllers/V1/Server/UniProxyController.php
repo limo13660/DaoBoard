@@ -43,7 +43,9 @@ class UniProxyController extends Controller
         Cache::put(CacheKey::get('SERVER_' . strtoupper($this->nodeType) . '_LAST_CHECK_AT', $this->nodeInfo->id), time(), 3600);
         $users = $this->serverService->getAvailableUsers($this->nodeInfo->group_id)
             ->map(function ($user) {
-                return array_filter($user->toArray(), fn($v) => !is_null($v));
+                return array_filter($user->toArray(), function ($v) {
+                    return !is_null($v);
+                });
             })->toArray();
 
         $response['users'] = $users;
