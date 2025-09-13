@@ -96,7 +96,7 @@ class OrderController extends Controller
             $order->period = 'deposit';
             $order->trade_no = Helper::generateOrderNo();
             $order->total_amount = $request->input('deposit_amount');
-            
+
             $orderService->setOrderType($user);
             $orderService->setInvite($user);
 
@@ -104,9 +104,9 @@ class OrderController extends Controller
                 DB::rollback();
                 abort(500, __('Failed to create order'));
             }
-    
+
             DB::commit();
-    
+
             return response([
                 'data' => $order->trade_no
             ]);
@@ -301,10 +301,9 @@ class OrderController extends Controller
             'data' => true
         ]);
     }
-
     private function getbounus($total_amount) {
         $deposit_bounus = config('v2board.deposit_bounus', []);
-        if (empty($deposit_bounus)) {
+        if (empty($deposit_bounus) || $deposit_bounus[0] === null) {
             return 0;
         }
         $add = 0;
