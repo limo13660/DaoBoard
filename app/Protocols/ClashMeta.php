@@ -176,7 +176,7 @@ class ClashMeta
                     $array['ws-opts']['path'] = $wsSettings['path'];
                 if (isset($wsSettings['headers']['Host']) && !empty($wsSettings['headers']['Host']))
                     $array['ws-opts']['headers'] = ['Host' => $wsSettings['headers']['Host']];
-                if (isset($wsSettings['security'])) 
+                if (isset($wsSettings['security']))
                     $array['cipher'] = $wsSettings['security'];
             }
         }
@@ -246,6 +246,17 @@ class ClashMeta
                 $array['grpc-opts'] = [];
                 if (isset($grpcSettings['serviceName'])) $array['grpc-opts']['grpc-service-name'] = $grpcSettings['serviceName'];
             }
+        }
+
+        if (isset($server['encryption']) && !empty($server['encryption']) && isset($server['encryption_settings']) && !empty($server['encryption_settings'])) {
+            $encryptionSettings = $server['encryption_settings'];
+            $array['encryption'] = $server['encryption'] ?? 'mlkem768x25519plus';
+            $array['encryption'] .= '.' . $encryptionSettings['mode'] ?? 'native';
+            $array['encryption'] .= '.' . $encryptionSettings['rtt'] ?? '1rtt';
+            if (isset($encryptionSettings['client_padding']) && !empty($encryptionSettings['client_padding'])) {
+                $array['encryption'] .= '.' . $encryptionSettings['client_padding'];
+            }
+            $array['encryption'] .= '.' . $encryptionSettings['password'] ?? '';
         }
 
         return $array;

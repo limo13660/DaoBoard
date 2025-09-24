@@ -223,19 +223,19 @@ class OrderService
             $orderAmountSum += $item['total_amount'] + $item['balance_amount'] + $item['surplus_amount'] - $item['refund_amount'];
         }
         if ($lastValidateAt === null) return;
-    
+
         $expiredAtByOrder = strtotime("+{$orderMonthSum} month", $lastValidateAt);
         $expiredAtByUser = $user->expired_at;
         if ($expiredAtByOrder < time() || $expiredAtByUser < time()) return;
         $orderSurplusSecond = $expiredAtByUser - time();
         $orderRangeSecond = $expiredAtByOrder - $lastValidateAt;
-    
+
         $totalTraffic = $user->transfer_enable;
         $usedTraffic = ($user->u + $user->d);
         if ($totalTraffic == 0) return;
-    
+
         $remainingTrafficRatio = ($totalTraffic - $usedTraffic) / $totalTraffic;
-    
+
         $avgPricePerSecond = $orderAmountSum / $orderRangeSecond;
         if ($orderRangeSecond <= 31 * 86400) {
             $remainingExpiredTimeRatio = $orderSurplusSecond / $orderRangeSecond;
@@ -249,7 +249,7 @@ class OrderService
             $orderSurplusAmount = $avgPricePerSecond * $monthSeconds * $surplusRatio +
                                   $avgPricePerSecond * $laterMonthsSeconds;
         }
-    
+
         $order->surplus_amount = max($orderSurplusAmount, 0);
         $order->surplus_order_ids = array_column($orders, 'id');
     }
@@ -379,7 +379,7 @@ class OrderService
 
     private function getbounus($total_amount) {
         $deposit_bounus = config('v2board.deposit_bounus', []);
-        if (empty($deposit_bounus)) {
+        if (empty($deposit_bounus) || $deposit_bounus[0] === null) {
             return 0;
         }
         $add = 0;

@@ -209,7 +209,11 @@ class Stash
                    $array['reality-opts']['public-key'] = $tlsSettings['public_key'];
                    $array['reality-opts']['short-id'] = $tlsSettings['short_id'];
                 }
-                $array['skip-cert-verify'] = $tlsSettings['allow_insecure'] ? true : false;
+                if (isset($tlsSettings['allow_insecure']) && $tlsSettings['allow_insecure'] == '1') {
+                     $array['skip-cert-verify'] = true;
+                } else {
+                     $array['skip-cert-verify'] = false;
+                }
                 $array['client-fingerprint'] = $tlsSettings['fingerprint'] ?? null;
             }
         }
@@ -249,7 +253,7 @@ class Stash
 
         return $array;
     }
-    
+
     public static function buildTrojan($password, $server)
     {
         $array = [];
@@ -321,7 +325,7 @@ class Stash
         $array['port'] = (int)$firstPort;
         if (count($parts) !== 1 || strpos($parts[0], '-') !== false) {
             $array['ports'] = $server['port'];
-            $array['mport'] = $server['port'];   
+            $array['mport'] = $server['port'];
         }
         $array['udp'] = true;
         $array['skip-cert-verify'] = $server['insecure'] == 1 ? true : false;
