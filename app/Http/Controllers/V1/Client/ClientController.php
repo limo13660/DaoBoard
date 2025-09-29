@@ -65,7 +65,7 @@ class ClientController extends Controller
         $userService = new UserService();
         $resetDay = $userService->getResetDay($user);
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "如果更新不了,重新倒入试试！",
+            'name' => "如果更新不了?到官网重新倒入试试",
         ]));
         array_unshift($servers, array_merge($servers[0], [
             'name' => "套餐到期：{$expiredDate}",
@@ -79,13 +79,13 @@ class ClientController extends Controller
             'name' => "剩余流量：{$remainingTraffic}",
         ]));
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "客服Q:1612633758",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
             'name' => "客服📮:ydtdcloud@gmail.com",
         ]));
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "官网:云上部落.com",
+            'name' => "官网2:yunshangbuluo.com",
+        ]));
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "官网1:云上部落.com",
         ]));
     }
 }
