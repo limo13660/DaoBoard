@@ -49,7 +49,7 @@ class UniProxyController extends Controller
             })->toArray();
 
         $response['users'] = $users;
-        if (strpos($request->header('X-Response-Format'), 'msgpack') !== false ) {
+        if (strpos($request->header('X-Response-Format'), 'msgpack') !== false) {
             $packer = new Packer();
             $response = $packer->pack($response);
             $eTag = sha1($response);

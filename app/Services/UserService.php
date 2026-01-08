@@ -139,7 +139,7 @@ class UserService
             case ($plan->reset_traffic_method === 4): {
                 return 365;
             }
-        }
+        }    
         return null;
     }
 
@@ -214,7 +214,7 @@ class UserService
         return true;
     }
 
-    public function isNotCompleteOrderByUserId(int $userId):bool
+    public function isNotCompleteOrderByUserId(int $userId): bool
     {
         return Order::where('user_id', $userId)
             ->whereIn('status', [0, 1])
