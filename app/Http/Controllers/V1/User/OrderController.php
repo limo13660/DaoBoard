@@ -95,8 +95,8 @@ class OrderController extends Controller
             $order->plan_id = $request->input('plan_id');
             $order->period = 'deposit';
             $order->trade_no = Helper::generateOrderNo();
-            $order->total_amount = $request->input('deposit_amount');
-
+            $order->total_amount = $amount;
+            
             $orderService->setOrderType($user);
             $orderService->setInvite($user);
 
@@ -104,9 +104,9 @@ class OrderController extends Controller
                 DB::rollback();
                 abort(500, __('Failed to create order'));
             }
-
+    
             DB::commit();
-
+    
             return response([
                 'data' => $order->trade_no
             ]);
@@ -208,7 +208,6 @@ class OrderController extends Controller
     {
         $tradeNo = $request->input('trade_no');
         $method = $request->input('method');
-        $referer = $request->headers->get('referer');
         $order = Order::where('trade_no', $tradeNo)
             ->where('user_id', $request->user['id'])
             ->where('status', 0)
@@ -239,7 +238,7 @@ class OrderController extends Controller
             'total_amount' => isset($order->handling_amount) ? ($order->total_amount + $order->handling_amount) : $order->total_amount,
             'user_id' => $order->user_id,
             'stripe_token' => $request->input('token')
-        ], $referer);
+        ]);
         return response([
             'type' => $result['type'],
             'data' => $result['data']
@@ -301,6 +300,7 @@ class OrderController extends Controller
             'data' => true
         ]);
     }
+
     private function getbounus($total_amount) {
         $deposit_bounus = config('v2board.deposit_bounus', []);
         if (empty($deposit_bounus) || $deposit_bounus[0] === null) {
