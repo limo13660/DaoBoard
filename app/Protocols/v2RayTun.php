@@ -28,7 +28,7 @@ class v2RayTun
         $body = base64_encode($uri);
 
         // 构建 v2raytun 标头
-        $appName = config('v2board.app_name', 'DaoBoard');
+        $appName = config('v2board.app_name', 'V2Board');
         $headers = [
             // profile-title 支持 base64 和原文
             'profile-title' => $this->getProfileTitle($appName),

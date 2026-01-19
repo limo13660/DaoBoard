@@ -4,7 +4,7 @@
 
 ## 本分支支持的后端
  - [修改版V2bX](https://github.com/wyx2685/V2bX)
-
+ - [v2node](https://github.com/wyx2685/v2node)
 
 ## 原版迁移步骤
 
@@ -24,7 +24,7 @@
 
 最后进入后台重新保存主题： 主题配置-选择default主题-主题设置-确定保存
 
-# **DaoBoard**
+# **V2Board**
 
 - PHP7.3+
 - Composer
@@ -44,7 +44,7 @@
 Thanks to the open source project license provided by [Jetbrains](https://www.jetbrains.com/)
 
 ## Community
-��Telegram Group: [@unofficialV2board](https://t.me/unofficialV2board)  
+🔔Telegram Group: [@unofficialV2board](https://t.me/unofficialV2board)  
 
 ## How to Feedback
 Follow the template in the issue to submit your question correctly, and we will have someone follow up with you.

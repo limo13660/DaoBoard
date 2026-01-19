@@ -23,7 +23,7 @@ class MailService
             ]),
             'template_name' => 'remindTraffic',
             'template_value' => [
-                'name' => config('v2board.app_name', 'DaoBoard'),
+                'name' => config('v2board.app_name', 'V2Board'),
                 'url' => config('v2board.app_url')
             ]
         ]);
@@ -39,7 +39,7 @@ class MailService
             ]),
             'template_name' => 'remindExpire',
             'template_value' => [
-                'name' => config('v2board.app_name', 'DaoBoard'),
+                'name' => config('v2board.app_name', 'V2Board'),
                 'url' => config('v2board.app_url')
             ]
         ]);

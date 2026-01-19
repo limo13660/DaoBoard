@@ -74,14 +74,14 @@ class CommController extends Controller
             abort(500, __('Email verification code has been sent, please request again later'));
         }
         $code = rand(100000, 999999);
-        $subject = config('v2board.app_name', 'DaoBoard') . __('Email verification code');
+        $subject = config('v2board.app_name', 'V2Board') . __('Email verification code');
 
         SendEmailJob::dispatch([
             'email' => $email,
             'subject' => $subject,
             'template_name' => 'verify',
             'template_value' => [
-                'name' => config('v2board.app_name', 'DaoBoard'),
+                'name' => config('v2board.app_name', 'V2Board'),
                 'code' => $code,
                 'url' => config('v2board.app_url')
             ]

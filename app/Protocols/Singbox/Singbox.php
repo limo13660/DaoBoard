@@ -18,7 +18,7 @@ class Singbox
 
     public function handle()
     {
-        $appName = config('v2board.app_name', 'DaoBoard');
+        $appName = config('v2board.app_name', 'V2Board');
         $this->config = $this->loadConfig();
         $proxies = $this->buildProxies();
         $outbounds = $this->addProxies($proxies);
