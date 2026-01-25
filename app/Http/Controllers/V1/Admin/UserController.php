@@ -144,6 +144,8 @@ class UserController extends Controller
                 abort(500, '订阅计划不存在');
             }
             $params['group_id'] = $plan->group_id;
+        } else {
+            $params['group_id'] = null;
         }
         if ($request->input('invite_user_email')) {
             $inviteUser = User::where('email', $request->input('invite_user_email'))->first();
@@ -349,7 +351,7 @@ class UserController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             abort(500, '批量删除用户信息失败');
-        }  
+        }
 
         return response([
             'data' => true
@@ -369,13 +371,13 @@ class UserController extends Controller
             Order::where('user_id', $request->input('id'))->delete();
             User::where('invite_user_id', $request->input('id'))->update(['invite_user_id' => null]);
             InviteCode::where('user_id', $request->input('id'))->delete();
-            
+
             $tickets = Ticket::where('user_id', $request->input('id'))->get();
             foreach($tickets as $ticket) {
                 TicketMessage::where('ticket_id', $ticket->id)->delete();
             }
             Ticket::where('user_id', $request->input('id'))->delete();
-    
+
             $user->delete();
             DB::commit();
         } catch (\Exception $e) {
