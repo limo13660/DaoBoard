@@ -153,7 +153,7 @@ class Surge
                     array_push($config, "ws-path={$wsSettings['path']}");
                 if (isset($wsSettings['headers']['Host']) && !empty($wsSettings['headers']['Host']))
                     array_push($config, "ws-headers=Host:{$wsSettings['headers']['Host']}");
-                if (isset($wsSettings['security'])) 
+                if (isset($wsSettings['security']))
                     array_push($config, "encrypt-method={$wsSettings['security']}");
             }
         }
@@ -202,12 +202,8 @@ class Surge
             "password={$password}",
             'tfo=true',
         ];
-        if (!empty($server['allow_insecure'])) {
-            array_push($config, 'skip-cert-verify=true');
-        }
-        if (!empty($server['server_name'])) {
-            array_push($config, "sni={$server['server_name']}");
-        }
+        if ($sni = $server['server_name'] ?? $server['tls_settings']['server_name'] ?? null) $config[] = "sni={$sni}";
+        if (($server['insecure'] ?? $server['tls_settings']['allow_insecure'] ?? 0) == 1) $config[] = "skip-cert-verify=true";
         $uri = implode(',', $config);
         $uri .= "\r\n";
         return $uri;
@@ -232,7 +228,7 @@ class Surge
             "password={$password}",
             "download-bandwidth={$server['up_mbps']}",
             $server['server_name'] ? "sni={$server['server_name']}" : "",
-            // 'tfo=true', 
+            // 'tfo=true',
             'udp-relay=true'
         ];
         if (!empty($server['insecure'])) {
