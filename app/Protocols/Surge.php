@@ -153,7 +153,7 @@ class Surge
                     array_push($config, "ws-path={$wsSettings['path']}");
                 if (isset($wsSettings['headers']['Host']) && !empty($wsSettings['headers']['Host']))
                     array_push($config, "ws-headers=Host:{$wsSettings['headers']['Host']}");
-                if (isset($wsSettings['security']))
+                if (isset($wsSettings['security'])) 
                     array_push($config, "encrypt-method={$wsSettings['security']}");
             }
         }
@@ -193,22 +193,6 @@ class Surge
         return $uri;
     }
 
-    public static function buildAnyTLS($password, $server)
-    {
-        $config = [
-            "{$server['name']}=anytls",
-            "{$server['host']}",
-            "{$server['port']}",
-            "password={$password}",
-            'tfo=true',
-        ];
-        if ($sni = $server['server_name'] ?? $server['tls_settings']['server_name'] ?? null) $config[] = "sni={$sni}";
-        if (($server['insecure'] ?? $server['tls_settings']['allow_insecure'] ?? 0) == 1) $config[] = "skip-cert-verify=true";
-        $uri = implode(',', $config);
-        $uri .= "\r\n";
-        return $uri;
-    }
-
     //参考文档: https://manual.nssurge.com/policy/proxy.html
     public static function buildHysteria($password, $server)
     {
@@ -228,7 +212,7 @@ class Surge
             "password={$password}",
             "download-bandwidth={$server['up_mbps']}",
             $server['server_name'] ? "sni={$server['server_name']}" : "",
-            // 'tfo=true',
+            // 'tfo=true', 
             'udp-relay=true'
         ];
         if (!empty($server['insecure'])) {
@@ -236,6 +220,30 @@ class Surge
         }
         $config = array_filter($config);
         $uri = implode(',', $config);
+        $uri .= "\r\n";
+        return $uri;
+    }
+
+    public static function buildAnyTLS($password, $server)
+    {
+        $tlsSettings = $server['tls_settings'] ?? [];
+        $allowInsecure = ($server['insecure'] ?? ($tlsSettings['allow_insecure'] ?? 0)) == 1 ? 'true' : 'false';
+        $sni = $server['server_name'] ?? ($tlsSettings['server_name'] ?? '');
+
+        $config = [
+            "{$server['name']}=anytls",
+            "{$server['host']}",
+            "{$server['port']}",
+            "password={$password}",
+            "skip-cert-verify={$allowInsecure}",
+            'tfo=true',
+        ];
+
+        if ($sni) {
+            $config[] = "sni={$sni}";
+        }
+
+        $uri = implode(', ', $config);
         $uri .= "\r\n";
         return $uri;
     }
