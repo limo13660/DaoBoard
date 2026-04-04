@@ -68,6 +68,12 @@ class ClientController extends Controller
             'name' => "如果更新不了?到官网重新倒入试试",
         ]));
         array_unshift($servers, array_merge($servers[0], [
+            'name' => "⚠️每次使用时请更新订阅⚠️",
+        ]));
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "客服📮:ydtdcloud@gmail.com",
+        ]));
+        array_unshift($servers, array_merge($servers[0], [
             'name' => "套餐到期：{$expiredDate}",
         ]));
         if ($resetDay) {
@@ -77,15 +83,6 @@ class ClientController extends Controller
         }
         array_unshift($servers, array_merge($servers[0], [
             'name' => "剩余流量：{$remainingTraffic}",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "客服📮:ydtdcloud@gmail.com",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "官网2:yunshangbuluo.com",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
-            'name' => "官网1:云上部落.com",
         ]));
     }
 }
