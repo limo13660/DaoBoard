@@ -65,7 +65,7 @@ class ClientController extends Controller
         $userService = new UserService();
         $resetDay = $userService->getResetDay($user);
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "如果更新不了?到官网重新倒入试试",
+            'name' => "⚠️不显示A区节点请更新软件",
         ]));
         array_unshift($servers, array_merge($servers[0], [
             'name' => "⚠️每次使用时请更新订阅⚠️",
@@ -78,7 +78,7 @@ class ClientController extends Controller
         ]));
         if ($resetDay) {
             array_unshift($servers, array_merge($servers[0], [
-                'name' => "距离下次重置剩余：{$resetDay} 天",
+                'name' => "{$resetDay} 天后重置流量",
             ]));
         }
         array_unshift($servers, array_merge($servers[0], [
