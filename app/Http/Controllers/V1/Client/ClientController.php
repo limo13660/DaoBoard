@@ -65,13 +65,13 @@ class ClientController extends Controller
         $userService = new UserService();
         $resetDay = $userService->getResetDay($user);
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "⚠️不显示A区节点请更新软件",
-        ]));
-        array_unshift($servers, array_merge($servers[0], [
             'name' => "⚠️每次使用时请更新订阅⚠️",
         ]));
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "客服📮:ydtdcloud@gmail.com",
+            'name' => "官网：云上部落.com",
+        ]));
+        array_unshift($servers, array_merge($servers[0], [
+            'name' => "客服:ydtdcloud@gmail.com",
         ]));
         array_unshift($servers, array_merge($servers[0], [
             'name' => "套餐到期：{$expiredDate}",
