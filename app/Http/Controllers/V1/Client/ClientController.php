@@ -71,7 +71,7 @@ class ClientController extends Controller
             'name' => "官网：云上部落.com",
         ]));
         array_unshift($servers, array_merge($servers[0], [
-            'name' => "客服:ydtdcloud@gmail.com",
+            'name' => "客服：ydtdcloud@gmail.com",
         ]));
         array_unshift($servers, array_merge($servers[0], [
             'name' => "套餐到期：{$expiredDate}",
